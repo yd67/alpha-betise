@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ConseilLectureController!{% endblock %}
+
+{% block body %}
+
+<div>
+    {% for livre in livres %}
+    
+        {{ livre.titre }}
+        {{ livre.auteur }}
+        {{ livre.editeur }}
+        {{ livre.prix }}
+
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

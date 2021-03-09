@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="">
+            
+            <link rel="stylesheet" href="https://bootswatch.com/4/sandstone/bootstrap.min.css">
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        {% endblock  %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('message') %}
+<div class="alert alert-success " role="alert">
+    {{message}}
+</div>
+{% endfor %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-8 ">
+                <table class="table text-center bg-light">
+                   <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Nom</th>
+                        <th>Prenom</th>
+                        <th>email</th>
+                        <th>roles</th>
+                        <th>Newletter</th>
+                        <th></th>
+                    </tr>
+                </thead> 
+                <tbody>
+                    {% for user in users %} 
+                    
+                    <tr>
+                        <td> {{loop.index}} </td>
+                        <td> {{user.nom}} </td>
+                        <td> {{user.prenom}} </td>
+                        <td> {{user.email}} </td>
+                        <td> {{user.roles|join(' + ')|lower }} </td>
+                        <td> {{user.newsletter}} </td>
+                      </tr> 
+                    {% endfor %}
+                </tbody>       
+                </table>
+                <a href=" {{path('ajout_livres')}} ">ajouter un article</a>
+            </div>
+            
+            <div class="col-3">
+                    <table class="table text-center bg-light">
+                        <thead>
+                            <tr></tr>
+                                <th>liste de categories </th>
+                                <th>action</th>
+                            </tr>
+                        </thead>
+                        <body>
+                            {% for categorie in categories %}
+                            <tr>
+                                <td> {{categorie.nomCategory}} </td>
+                                <td>
+                                    <a href=" {{path('delete_category',{'id':categorie.id} )}} ">supprimer</a>
+                                </td>
+                            </tr>  
+                            {% endfor %}
+                           
+                        </body>
+                    </table>  
+                         <a class="justify-content-end" href=" {{path('ajout_category')}} ">ajouter une categories</a>       
+            </div>
+        </div>
+    </div>
+
+
+        {% block javascripts %}
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        {% endblock  %}
+
+
+{% endblock %}
