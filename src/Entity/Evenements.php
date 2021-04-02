@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EvenementsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,12 +27,7 @@ class Evenements
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $titre_evenements;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_evenements;
+    private $title;
 
     /**
      * @ORM\Column(type="string", length=60, nullable=true)
@@ -38,7 +35,7 @@ class Evenements
     private $lieux;
 
     /**
-     * @ORM\Column(type="string", length=40)
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $reservation;
 
@@ -48,19 +45,49 @@ class Evenements
     private $max_personne;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $prix;
-
-    /**
-     * @ORM\Column(type="string", length=60, nullable=true)
-     */
-    private $horaire;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $age_cible;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $start;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $end;
+
+    /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     */
+    private $background_color;
+
+    /**
+     * @ORM\Column(type="string", length=7, nullable=true)
+     */
+    private $text_color;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventsParticipant::class, mappedBy="evenement")
+     */
+    private $eventsParticipants;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    public function __construct()
+    {
+        $this->eventsParticipants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -79,26 +106,14 @@ class Evenements
         return $this;
     }
 
-    public function getTitreEvenements(): ?string
+    public function getTitle(): ?string
     {
-        return $this->titre_evenements;
+        return $this->title;
     }
 
-    public function setTitreEvenements(string $titre_evenements): self
+    public function setTitle(string $title): self
     {
-        $this->titre_evenements = $titre_evenements;
-
-        return $this;
-    }
-
-    public function getDateEvenements(): ?\DateTimeInterface
-    {
-        return $this->date_evenements;
-    }
-
-    public function setDateEvenements(\DateTimeInterface $date_evenements): self
-    {
-        $this->date_evenements = $date_evenements;
+        $this->title = $title;
 
         return $this;
     }
@@ -151,18 +166,6 @@ class Evenements
         return $this;
     }
 
-    public function getHoraire(): ?string
-    {
-        return $this->horaire;
-    }
-
-    public function setHoraire(?string $horaire): self
-    {
-        $this->horaire = $horaire;
-
-        return $this;
-    }
-
     public function getAgeCible(): ?string
     {
         return $this->age_cible;
@@ -174,4 +177,95 @@ class Evenements
 
         return $this;
     }
+
+    public function getStart(): ?\DateTimeInterface
+    {
+        return $this->start;
+    }
+
+    public function setStart(\DateTimeInterface $start): self
+    {
+        $this->start = $start;
+
+        return $this;
+    }
+
+    public function getEnd(): ?\DateTimeInterface
+    {
+        return $this->end;
+    }
+
+    public function setEnd(\DateTimeInterface $end): self
+    {
+        $this->end = $end;
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->background_color;
+    }
+
+    public function setBackgroundColor(?string $background_color): self
+    {
+        $this->background_color = $background_color;
+
+        return $this;
+    }
+
+    public function getTextColor(): ?string
+    {
+        return $this->text_color;
+    }
+
+    public function setTextColor(?string $text_color): self
+    {
+        $this->text_color = $text_color;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventsParticipant[]
+     */
+    public function getEventsParticipants(): Collection
+    {
+        return $this->eventsParticipants;
+    }
+
+    public function addEventsParticipant(EventsParticipant $eventsParticipant): self
+    {
+        if (!$this->eventsParticipants->contains($eventsParticipant)) {
+            $this->eventsParticipants[] = $eventsParticipant;
+            $eventsParticipant->setEvenement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventsParticipant(EventsParticipant $eventsParticipant): self
+    {
+        if ($this->eventsParticipants->removeElement($eventsParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($eventsParticipant->getEvenement() === $this) {
+                $eventsParticipant->setEvenement(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
 }

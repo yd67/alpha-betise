@@ -2,7 +2,7 @@
 
 {% block title %}connexion!{% endblock %}
 
-{% block body %}
+{% block body %}<div class="container">
 <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -14,16 +14,37 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" required>
-
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
 
+    <div class="field">
+        <p class="control has-icons-left has-icons-right">
+          <input class="input" type="email" placeholder="Email"  value="{{ last_username }}" name="email" id="inputEmail" required autofocus >
+          <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+          <span class="icon is-small is-right">
+            <i class="fas fa-check"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="password" placeholder="Password" name="password" id="inputPassword" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-lock"></i>
+          </span>
+        </p>
+      </div>
+      <div class="field">
+        <p class="control">
+          <button class="button is-success">
+            connexion
+          </button>
+          <a href=" {{path('app_register')}} ">inscription</a>
+        </p>
+      </div>
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
         See https://symfony.com/doc/current/security/remember_me.html
@@ -35,8 +56,7 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
 </form>
+</div>
+</div>
 {% endblock %}

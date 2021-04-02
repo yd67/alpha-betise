@@ -9,7 +9,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class EvenementsType extends AbstractType
 {
@@ -17,14 +22,32 @@ class EvenementsType extends AbstractType
     {
         $builder
             ->add('img',FileType::class)
-            ->add('titre_evenements',TextType::class)
-            ->add('date_evenements',DateType::class)
-            ->add('lieux',TextType::class)
-            ->add('reservation')
+            ->add('title',TextType::class)
+            ->add('start',DateTimeType::class,[
+                'date_widget' => 'single_text',
+                
+            ])
+            ->add('end',DateTimeType::class,[
+                'date_widget' => 'single_text',
+                
+            ])
+            ->add('lieux',TextType::class,[
+                'required'   => false,
+                'empty_data' => 'a la librairie' 
+            ])
+            ->add('reservation',ChoiceType::class,[
+                'choices' => [
+                    'sur reservation' => true,
+                    'pas de reservation' => false,
+                ],
+            ])
             ->add('max_personne')
             ->add('prix')
-            ->add('horaire')
             ->add('age_cible')
+            ->add('description',TextareaType::class)
+            ->add('background_color',ColorType::class)
+            ->add('text_color',ColorType::class)
+
             ->add('ajouter',SubmitType::class)
         ;
     }

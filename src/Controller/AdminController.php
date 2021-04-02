@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Form\LivresType;
 use App\Form\AjoutCategoryType;
 use App\Repository\UserRepository;
+use App\Repository\LivresRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,10 +19,11 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $UserRepository,CategoryRepository $categoryRepository): Response
+    public function index(UserRepository $UserRepository,LivresRepository $livresRepository ,CategoryRepository $categoryRepository): Response
     {
         $users = $UserRepository->findAll();
         $category =$categoryRepository->findAll();
+        $livres = $livresRepository->findAll();
         
 
        //  $dateNaissance = $users->getAge();
@@ -34,6 +36,7 @@ class AdminController extends AbstractController
         return $this->render('admin/admin.html.twig', [
             'users' => $users,
             'categories' => $category,
+            'livres' =>$livres ,
         ]);
     }
 

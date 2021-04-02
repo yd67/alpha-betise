@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ConseilLectureController extends AbstractController
 {
     /**
-     * @Route("/conseil/lecture", name="conseil_lecture")
+     * @Route("/lecture", name="conseil_lecture")
      */
     public function index(LivresRepository $livresRepository): Response
     {

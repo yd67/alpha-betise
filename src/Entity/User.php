@@ -77,11 +77,28 @@ class User implements UserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
-    
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventsParticipant::class, mappedBy="user")
+     */
+    private $eventsParticipants;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Notes::class, mappedBy="user")
+     */
+    private $notes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaires::class, mappedBy="user")
+     */
+    private $commentaires;    
 
     public function __construct()
     {
         $this->commandes = new ArrayCollection();
+        $this->eventsParticipants = new ArrayCollection();
+        $this->notes = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -275,6 +292,96 @@ class User implements UserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventsParticipant[]
+     */
+    public function getEventsParticipants(): Collection
+    {
+        return $this->eventsParticipants;
+    }
+
+    public function addEventsParticipant(EventsParticipant $eventsParticipant): self
+    {
+        if (!$this->eventsParticipants->contains($eventsParticipant)) {
+            $this->eventsParticipants[] = $eventsParticipant;
+            $eventsParticipant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventsParticipant(EventsParticipant $eventsParticipant): self
+    {
+        if ($this->eventsParticipants->removeElement($eventsParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($eventsParticipant->getUser() === $this) {
+                $eventsParticipant->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notes[]
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Notes $note): self
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes[] = $note;
+            $note->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Notes $note): self
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getUser() === $this) {
+                $note->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Commentaires[]
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaires $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaires $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getUser() === $this) {
+                $commentaire->setUser(null);
+            }
+        }
 
         return $this;
     }

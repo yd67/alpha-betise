@@ -2,19 +2,101 @@
 
 {% block title %}Hello EvenementsController!{% endblock %}
 
+{% block stylesheets %}
+
+<link rel="stylesheet" href=" {{asset('css/evenements.css')}} ">
+
+{% endblock  %}
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container">
+   <div class="calendrier">
+     <div class="block"> <h1 class="title 1"> bienvenue sur la page rencontres de d'Alpha Betise </h1></div>
+     <div class="image"> </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/Symfony/alpha-betise/src/Controller/EvenementsController.php'|file_link(0) }}">src/Controller/EvenementsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/Symfony/alpha-betise/templates/evenements/index.html.twig'|file_link(0) }}">templates/evenements/index.html.twig</a></code></li>
-    </ul>
+        <div class="swiper-container">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div class="swiper-slide"> <img  src=" {{asset('img/evenements/rencontre1.jpg')}}  " alt=""> </div>
+            <div class="swiper-slide"><img src=" {{asset('img/evenements/rencontre2.jpg')}}  " alt=""></div>
+            <div class="swiper-slide"><img  src=" {{asset('img/evenements/rencontre3.jpg')}}  " alt=""></div>
+            ...
+          </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+        
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        
+          <!-- If we need scrollbar -->
+          <div class="swiper-scrollbar"></div>
+        </div>
+
+      <div id="calendar" class="block">
+      </div> 
+       <div>
+  <h2 class="title is-1"> les evenements a venir </h2>
+
+ 
+
+</div> 
+ {% for event in evenements %}
+
+      <div class="box">
+        <div> <h2 class="title is-2">{{event.title}}</h2> </div>
+        <div>
+                <div>lieux :  {{event.lieux}}</div>
+                <div>   date de l'evenement:  {{event.start|date("d/m/Y")}} </div> 
+        </div>  
+         <div> <img src=" {{asset('img/evenements/' ~ event.img )}} " alt=""></div> 
+     
+           <div> {{event.description}}</div>
+      </div> 
+
+        {% for p in event.eventsParticipants %}
+          
+        {{ p.user.nom }}  {{ p.user.prenom}} {{ p.user.email }}
+         <a href=" {{ path('evenements_inscription',{'id':event.id}) }} "> s'inscrire a un evenement</a>
+      
+       {# <a href="{{ path(' evenements_desinscription',{'id':p.user.id}) }}">se désinscrire </a> 
+#}
+        {% endfor %}
+           
+  {% endfor %}
+  
 </div>
+</div>
+  {% block javascripts %}
+    <!-- gestion du calendrier    -->
+    <script> 
+        window.onload =  () => {
+            let calendarEl = document.getElementById('calendar');
+
+                let calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'fr',
+                timeZone: 'Europe/Paris',
+                buttonText:{
+                    today: 'aujourd\'hui',
+                    month: 'mois',
+                    week: 'semaines',
+                    day:  'jour',
+                    list: 'liste',
+                },
+                selectable: true,
+                events:{{donnees|raw}}
+                
+                })
+
+                 calendar.setOption('contentHeight', 320);
+                 
+                
+            calendar.render();
+          }
+
+        </script>
+        
+        {% endblock  %}
 {% endblock %}

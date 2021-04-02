@@ -18,11 +18,6 @@ class Commentaires
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $auteur;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $contenue;
@@ -33,21 +28,19 @@ class Commentaires
      */
     private $livres;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="commentaires")
+     */
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getAuteur(): ?string
-    {
-        return $this->auteur;
-    }
-
-    public function setAuteur(string $auteur): self
-    {
-        $this->auteur = $auteur;
-
-        return $this;
     }
 
     public function getContenue(): ?string
@@ -70,6 +63,30 @@ class Commentaires
     public function setLivres(?livres $livres): self
     {
         $this->livres = $livres;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $created_at): self
+    {
+        $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

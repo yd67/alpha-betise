@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} evenements passer {% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href=" {{asset('css/evenements.css')}} ">
+{% endblock  %}
+{% block body %}
+
+ <div class="container">
+  {% for event in events %}
+      
+  
+  <div class="box">
+    <div> {{event.title}}</div>
+    <div>
+            <div>lieux :  {{event.lieux}}</div>
+            <div> date de l'evenement:  {{event.start|date("d/m/Y")}}</div> 
+    </div>  
+     <div> <img src=" {{asset('img/evenements/' ~ event.img )}} " alt=""></div> 
+ 
+       <div> {{event.description}}</div>
+  </div> 
+
+  {% endfor %}
+  </div>
+       
+{% endblock %}
