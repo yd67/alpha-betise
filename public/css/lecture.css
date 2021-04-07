@@ -2,3 +2,10 @@
 .checked{
     color: orange;
 }
+.filter{
+   
+}
+.active{
+    border-bottom: 4px solid  salmon;
+    
+}

@@ -1,0 +1,23 @@
+
+    <div class="columns is-centered">       
+         {% for livre in livres %}
+         <div class="column is-3 ">
+            <div class="card ">
+                <div class="card-image">
+                  <figure class="image is-1by1">
+                    <img src=" {{asset('img/livres/' ~ livre.img )}} " alt="Placeholder image">
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div> Titre {{ livre.titre }}</div>
+                  <div> auteur {{ livre.auteur }}</div>
+                  <div> editeur {{ livre.editeur }}</div>
+                  <div> prix {{ livre.prix }} €</div>
+
+                </div>
+              </div>
+            
+    
+     
+</div>
+      {% endfor %}

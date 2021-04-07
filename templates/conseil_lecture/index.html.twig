@@ -8,57 +8,17 @@
 {% block body %}
 
 <div class="container">
-
    <div class="columns is-mobile is-centered ">
-        <div class="column is-2">catORIES1</div>
-        <div class="column is-2">catHEJJEK1</div>
-        <div class="column is-2">catLKCKLLKCE1</div>
-      </div> 
-    <div class="columns is-centered">       
-         {% for livre in livres %}
-         <div class="column is-3 ">
-            <div class="card ">
-                <div class="card-image">
-                  <figure class="image is-1by1">
-                    <img src=" {{asset('img/livres/' ~ livre.img )}} " alt="Placeholder image">
-                  </figure>
-                </div>
-                <div class="card-content">
-                  <div class="media">
-                    <div class="media-left">
-                      <figure class="image is-48x48">
-                        <img src="https://bulma.io/images/placeholders/96x96.png"  alt="Placeholder image">
-                      </figure>
-                    </div>
-                    <div class="media-content">
-                      <p class="title is-4">John Smith</p>
-                      <p class="subtitle is-6">@johnsmith</p>
-                    </div>
-                  </div>
-              
-                  <div class="content">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus nec iaculis mauris. <a>@bulmaio</a>.
-                    <a href="#">#css</a> <a href="#">#responsive</a>
-                    <br>
-                    <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                  </div>
-                </div>
-              </div>
-            
-    
-      <div> {{ livre.titre }}</div>
-      <div>{{ livre.auteur }}</div>
-      <div>{{ livre.editeur }}</div>
-      <div>{{ livre.prix }}</div>
-</div>
-      {% endfor %}
-
-        
+     <div class="column is-2 filter  is-centered"> <a class="afilter" href=" {{path('conseil_lecture')}} "> all </a></div>
+    {% for categorie in category %}
+        <div class="column filter is-2  is-centered" id=" {{categorie.id}} "> <a class="afilter" href=" {{path('livre_By_Cat',{'id':categorie.id} )}} "> {{categorie.nomCategory}} </a> </div>
+    {% endfor %}   
+     </div>  
+     
+     <div id="contenueFiltre">
+       {% include "conseil_lecture/contenue.html.twig" %}
+        </div>
     </div>
-
-   
-
 
       <div>
            <span class="fas fa-star " data-star="1"></span><!-- 

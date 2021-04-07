@@ -35,6 +35,15 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+    
+    public function findByCat($filter): ?Category
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.category IN(:cat)')
+            ->setParameter('cat',array_values($filter))
+           
+        ;
+    }
 
     /*
     public function findOneBySomeField($value): ?Category
