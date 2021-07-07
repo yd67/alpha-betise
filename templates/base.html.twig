@@ -129,8 +129,10 @@
          <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
          <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
          {# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script> #}
-         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVu3tKfzjh0Iovx2sgCh5YQUXxdyvqXxI&callback=initMap"></script>>
+        
          <script src=" {{asset('js/main.js')}} ">  </script>
+
+         {# ne pas oublier le script avec la cle API pour google map #}
         
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
