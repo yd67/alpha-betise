@@ -1,15 +1,4 @@
-
-// let req = new XMLHttpRequest();
-
-// req.open("GET"," {{path('evenements')}} ",false)
-// req.send();
-// if(req.status == 200){
-//     console.log(req);
-//     console.log("ca fonction");
-// }else{
-//     console.log("erreur")
-//}
-// responsive nav-bar 
+ 
 document.addEventListener('DOMContentLoaded', function () {
 
   // Get all "navbar-burger" elements
@@ -37,8 +26,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-
-
 // le carousel   
 
 const swiper = new Swiper('.swiper-container', {
@@ -62,34 +49,25 @@ const swiper = new Swiper('.swiper-container', {
       el: '.swiper-scrollbar',
     },
   });
-  
 
 bulmaCarousel.attach('#carousel-demo', {
     slidesToScroll: 1,
-    slidesToShow: 1,
-    
-    
+    slidesToShow: 1, 
 });
 
+// ********************* Gestion de la Map ******************************
 
-// document.addEventListener('DOMContentLoaded', function() {
-//     var calendarEl = document.getElementById('calendar');
-//     var calendar = new FullCalendar.Calendar(calendarEl, {
-//       initialView: 'dayGridMonth',
-//       locale: 'fr',
-//       timeZone: 'Europe/Paris',
-//       headerToolBar: {
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    center: { lat: 48.5426447, lng:7.7759673 },
+    zoom: 11,
+  }); 
+ const repere={ lat: 48.5426447, lng:7.7759673 };
 
-//         center: 'title',
-        
-//        },
-//        buttonText:{
-//         today: 'aujourd\'hui',
-//         month: 'mois',
-//         week: 'semaines',
-//         day:  'jour',
-//         list: 'liste'
-//        }
-//     });
-//     calendar.render();
-//   });
+ const marker = new google.maps.Marker({
+    position: repere,
+    map: map,
+
+  });
+
+}

@@ -1,62 +1,103 @@
-{% extends 'base.html.twig' %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" integrity="sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA==" crossorigin="anonymous" />
 
-{% block title %}connexion!{% endblock %}
+   <!-- <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+   <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" /> -->
 
-{% block body %}<div class="container">
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+   <link rel="stylesheet" href=" {{asset('css/main.css')}} ">
+      {% block stylesheets %}
+      {#{{ encore_entry_link_tags('app') }}#}
+  {% endblock %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            vous etes connecté  {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
-        </div>
-    {% endif %}
+</head>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+<body>
+  
+{% block body %}
 
-    <div class="field">
-        <p class="control has-icons-left has-icons-right">
-          <input class="input" type="email" placeholder="Email"  value="{{ last_username }}" name="email" id="inputEmail" required autofocus >
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control has-icons-left">
-          <input class="input" type="password" placeholder="Password" name="password" id="inputPassword" required>
-          <span class="icon is-small is-left">
-            <i class="fas fa-lock"></i>
-          </span>
-        </p>
-      </div>
-      <div class="field">
-        <p class="control">
-          <button class="button is-success">
-            connexion
-          </button>
-          <a href=" {{path('app_register')}} ">inscription</a>
-        </p>
-      </div>
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+{% if error %}
+<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
 
-        <div class="checkbox mb-3">
-            <label>
+{% if app.user %}
+<div class="mb-3">
+  vous etes connecté {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+</div>
+{% endif %}
+
+
+
+<section class="hero  is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-black">Connexion</h3>
+        <hr class="login-hr">
+        <div class="box">
+
+          <form method="post">
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                <input class="input" type="email" placeholder="Email" value="{{ last_username }}" name="email"
+                  id="inputEmail" required autofocus>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                  <i class="fas fa-check"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control has-icons-left">
+                <input class="input" type="password" placeholder="Password" name="password" id="inputPassword" required>
+                <span class="icon is-small is-left">
+                  <i class="fas fa-lock"></i>
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control">
+                <button class=" button is-block is-info is-large is-fullwidth">
+                  connexion
+                </button>
+
+              </p>
+            </div>
+            {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me
+            functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+              <label>
                 <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+              </label>
+            </div>
+            #}
 
-</form>
-</div>
-</div>
+          </form>
+
+        </div>
+        <p class="">
+          <a href="../">mot de passe oublié</a>  <span>|</span>
+           <a href=" {{path('app_register')}} ">inscription</a>  <span>|</span>  
+          <a href=" {{path('home')}} ">retour a l'acceuil</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
+
 {% endblock %}

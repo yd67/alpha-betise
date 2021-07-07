@@ -22,19 +22,28 @@ class EventsParticipantRepository extends ServiceEntityRepository
     // /**
     //  * @return EventsParticipant[] Returns an array of EventsParticipant objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByPartication(int $evenement,int $user)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+            ->where('e.evenement = :evenement')
+            ->andWhere('e.user = :user')
+            ->setParameters(array('evenement'=> $evenement, 'user' => $user))
+            ->getQuery()
+            ->getOneOrNullResult()
+           // ->getResult()
+        ;
+    }
+    public function findEventUser(int $userId)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.user = :val')
+            ->setParameter('val',$userId)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?EventsParticipant

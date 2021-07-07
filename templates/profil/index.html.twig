@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+
+{% block body %}
+
+<!-- ********message flash *******-->
+{% for message in app.flashes('success') %}
+<div class="notification is-primary">
+    {{ message }}
+</div>
+{% endfor %}
+
+<!-- ***********************  fin message flash *************************** -->
+<div class="container">
+    <section class="section"> 
+        <h3 class="title is-4"> Mon  Compte </h3>
+        <div class="columns box">
+            <div class="column is-centered is-3 ">
+                <div>
+                    <figure>
+                        <img class="is-rounded" src="{{ asset('img/profil-user/' ~ app.user.img) }}" alt="">
+                    </figure>
+                </div>
+            </div>
+            <div class="column is-9">
+                    <div> Nom: {{app.user.nom|upper}} </div>
+                    <div>Prenom:{{app.user.prenom|upper}}</div>
+                    <div>Age: {{ageUser}} ans </div>
+                    <div> Compte creer le  {{app.user.dateCreation| date('d-m-y')}}</div>
+                     <a href="">Modifier mes informations</a>
+            </div>
+        </div>
+       
+       
+
+    </section>
+
+    <section class="section">
+        <h3 class="title is-3"> Mes Evenements </h3>
+        <div class="box ">
+            {% if eventsP is not empty %}
+                 {% for p in eventsP %}
+                        <div class="mb-4">
+                            {{p.evenement.title}}
+                            <a class="button" href="{{ path('evenements_desinscription',{'id':p.evenement.id}) }}"> se désinscrire </a> 
+                        </div>
+                  {% endfor %}
+            {% else %}
+            vous  etes inscrit a aucun evenement
+            {% endif %}
+       
+        </div>    
+    </section>
+
+    <section class="section">
+        <h3 class="title is-5"> Mes Commandes </h3>
+        <div>
+            vous n'avez pas de commande
+        </div>
+        
+    </section>
+</div>
+ 
+{% endblock %}
+

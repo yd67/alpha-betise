@@ -110,6 +110,23 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin');
     }
     
+    /**
+     * @Route("/admin/livre/delete-{id}", name="delete_livre")
+     */
+    public function deletelivre(LivresRepository $LivresRepository, $id){
+
+        $livres = $LivresRepository->find($id);
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($livres);
+        $manager->flush();
+
+        $this->addFlash(
+            'success','la livre a bien éte supprimer'
+        );
+
+        return $this->redirectToRoute('admin');
+    }
 
    
     

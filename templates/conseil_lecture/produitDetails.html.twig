@@ -1,0 +1,148 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<div class="modal " id="modal-img">
+  <div class="modal-background"></div>
+  <div class="modal-content">
+    <p class="image ">
+      <img src="{{asset('img/livres/' ~ livre.img )}}" alt="">
+    </p>
+  </div>
+  <button  onclick="modalClose()" class="modal-close is-large" aria-label="close"></button>
+</div>
+
+
+<div class="container  ">
+  <div class="columns mt-6">
+    <div class="  column is-5 has-text-centered p-3 has-background-light">
+      <figure>
+       <a  onclick="modalOpen()"><img src="{{asset('img/livres/' ~ livre.img )}}" style="max-height: 410px;" alt=" image non trouvé"></a>
+      </figure>
+    </div>
+    <div class="column ">
+
+      <div class="block content">
+        <div> {{livre.titre}} </div>
+        <div> <span  class="has-text-weight-semibold">Auteur</span> : {{ livre.auteur }}</div>
+        <div> <span  class="has-text-weight-semibold">edition</span> : {{ livre.editeur }}</div>
+        {% if noteM.0.0.1 != null %}
+        <div> notes ( {{livre.notes|length}} ):
+          {{noteM.0.0.1|round(1, 'floor')}}/5
+        </div>
+
+        {% endif %}
+        <div> en stock  </div>
+        <div> <a class="button is-warning is-focuced" href=" {{path('panier_add',{'id':livre.id})}} "> <i class="far fa-shopping-bag mr-2"> </i>  ajouter au panier </a></div>
+        <div> <span  class="has-text-weight-semibold">Code EAN / ISBN </span> : {{livre.code}}   </div>
+        <div> <span class="has-text-weight-semibold">presentation de l'ouvrage</span> : <br>
+              <p >{{livre.resume}}  </p>  
+       </div>
+        <div> commentaire du libraire </div>
+
+        <div>
+          <span class="fas fa-star " data-star="1"></span>
+          <!-- 
+                  --><span class="fas fa-star " data-star="2"></span>
+          <!--
+                  --><span class="fas fa-star" data-star="3"></span>
+          <!--
+                  --><span class="fas fa-star" data-star="4"></span>
+          <!--
+                  --><span class="fas fa-star" data-star="5"></span>
+        </div>
+        {% if app.user %}
+        {{ form_start(noteForm) }}
+
+        {{ form_row(noteForm.note) }}
+
+        <button type="submit"> noter</button>
+        {{ form_end(noteForm) }}
+        {% else %}
+        <a href=" {{path('app_login')}} " class="button">noter</a>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+<p class="is-title is-4">Commenter</p>
+  {% for com in livre.commentaires %}
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img class="is-rounded" src=" {{ asset('img/profil-user/' ~ com.user.img) }} " alt="non trouver">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="content">
+        <p>
+          <strong> {{com.user.prenom}} {{com.user.nom}} </strong>
+          <br>
+
+          {{ com.contenue }}
+          <br>
+          - {{com.createdAt|date() }}</small>
+        </p>
+      </div>
+
+    </div>
+  </article>
+  {% endfor %}
+
+  {% if app.user %}
+
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-64x64">
+        <img class="is-rounded" src=" {{asset('img/profil-user/' ~ app.user.img)}} ">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="field">
+        <p class="control">
+
+          {{form_start(commentaire)}}
+          {{ form_row(commentaire.contenue)}}
+        </p>
+      </div>
+
+      <br>
+      <div class="field">
+        <p class="control">
+          <button class="button" type="submit">Post comment</button>
+        </p>
+      </div>
+      {{form_end(commentaire)}}
+    </div>
+  </article>
+  {% else %}
+
+  <div class="column is-7">
+    <article class="media ">
+      <div class="media-content">
+        <div class="field">
+          <p class="control">
+            <textarea class="textarea" placeholder="Add a comment..."></textarea>
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            <a  class="button has-text-right" href="{{path('app_login')}} ">Post comment</a>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+
+
+  {% endif %}
+</div>
+
+{% block javascripts %}
+<script src=" {{ asset('js/lecture.js') }} "></script>
+{% endblock %}
+
+{% endblock %}

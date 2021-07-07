@@ -9,3 +9,10 @@
     border-bottom: 4px solid  salmon;
     
 }
+.articles{
+   display: grid;
+   
+}
+.livre-img{
+    max-height: 70px;
+}

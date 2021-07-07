@@ -16,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -26,16 +27,47 @@ class RegistrationFormType extends AbstractType
             ->add('nom',TextType::class)
             ->add('prenom',TextType::class)
             ->add('email',EmailType::class)
-            ->add('age',BirthdayType::class)
-            ->add('img',FileType::class,[
-                'required'=> false,
+            ->add('plainPassword', RepeatedType::class, [
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'type' => PasswordType::class,
+                'first_options'  => [
+                    'label' => 'mot de passe',
+                    'attr' => [
+                        'class' => 'input',
+                        'placeholder' => 'votre mot de passe '
+                    ]
+                ],
+                'second_options' => [
+                    'label' => 'comfirmer  mot de passe',
+                    'attr' => [
+                        'class' => 'input',
+                        'placeholder' => ' comfirmer mot de passe '
+                    ]
+                ],
+                'mapped' => false,
+                'label' => 'mot de passe',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Please enter a password',
+                    ]),
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'votre mot de passe doit comporter au minimun {{ limit }} characters',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
             ])
-
+            ->add('age',BirthdayType::class)
             ->add('newsletter',ChoiceType::class,[
                 'choices'  => [
                     'oui' => 'oui',
                     'non' => 'non' ,
                  ]
+            ])
+            ->add('img',FileType::class,[
+                'required'=> false,
             ])
 
             ->add('agreeTerms', CheckboxType::class, [
@@ -46,22 +78,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('plainPassword', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'mapped' => false,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
-                ],
-            ])
+           
         ;
     }
 

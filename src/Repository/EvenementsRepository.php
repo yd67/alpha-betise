@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Evenements;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Evenements|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,18 +23,26 @@ class EvenementsRepository extends ServiceEntityRepository
     // /**
     //  * @return Evenements[] Returns an array of Evenements objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findNextEvents(DateTime $dateActuel,int $maxResult)
     {
         return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('e.start > :val')
+            ->setParameter('val', $dateActuel)
             ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
+            ->setMaxResults($maxResult)
             ->getQuery()
             ->getResult()
         ;
     }
+/*
+     $query = $entityManager->createQuery("
+        SELECT e FROM App\Entity\Evenements e WHERE e.end > :dateA 
+        ")
+        ->setParameter('dateA', $dateActuel)
+        ->setMaxResults(2)
+        ;
+        $evenementsAvenir = $query->getResult() ;
     */
 
     /*

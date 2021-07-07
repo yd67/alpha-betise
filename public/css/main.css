@@ -1,4 +1,6 @@
-
+body{
+    font-family: cursive;
+}
 
 .calendrier{
     
@@ -6,3 +8,32 @@
     margin: 0 auto;
     
 }
+header{
+
+    background-color: white;
+}
+.panier-contenue{
+    background-color: #e2001a;
+    color:white;
+    border-radius: 50% ;
+    width: 20px;
+    height: 23px;
+    display: inline-block;   
+}
+.img-produit{
+    max-height: 100px;
+
+}
+#map{
+    height: 400px;
+    /* The height is 400 pixels */
+    
+    /* The width is the width of the web page */
+  
+}
+.map{
+    width: 100%;
+    border-left: 1px solid black;
+
+}
+

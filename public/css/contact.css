@@ -1,0 +1,33 @@
+
+body{
+    color: white;
+}
+label{
+    color: white;
+}
+.contenue{
+    
+    position: relative;
+    height: 650px;
+}
+.fond-noir{
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    position: absolute;
+    opacity: 0.6;
+
+}
+
+.block-contenue{
+   
+    z-index: 3;
+}
+.contact-img{
+    width:100% ;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+    
+    
+}

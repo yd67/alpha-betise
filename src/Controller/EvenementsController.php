@@ -21,9 +21,10 @@ class EvenementsController extends AbstractController
     /**
      * @Route("/evenements", name="evenements")
      */
-    public function index(EvenementsRepository $evenementsRepository): Response
+    public function index(EvenementsRepository $evenementsRepository,EventsParticipantRepository $eventsParticipantRepository): Response
     {
         $evenements = $evenementsRepository->findAll();
+        $eventsParticipant = $eventsParticipantRepository->findAll();
 
         $test = $evenementsRepository->findAll();
 
@@ -60,18 +61,19 @@ class EvenementsController extends AbstractController
             $evenementsAvenir = $query->getResult() ;
 
             // recuperer un user conecter et son email
-            $user = $this->getUser();
-            if($user != null){
-                 $userEmail = $user->getEmail() ;
-            }else{
-                $userEmail ="email inconu";
-            }
+            // $user = $this->getUser();
+            // if($user != null){
+            //      $userEmail = $user->getEmail() ;
+            // }else{
+            //     $userEmail ="email inconu";
+            // }
             
         
         return $this->render('evenements/index.html.twig', [
             'evenements' => $evenementsAvenir,
             'donnees' => $donnees,
-            'userEmail' => $userEmail,
+            // 'userEmail' => $userEmail,
+            'participant' => $eventsParticipant
         ] );
         
     }
@@ -100,7 +102,7 @@ class EvenementsController extends AbstractController
             return $this->redirectToRoute('admin');
 
         }
-
+        
         return $this->render('admin/ajoutEvenements.html.twig', [
             'createEvenementsForm' => $form->createView(),
         ]);
@@ -132,68 +134,69 @@ class EvenementsController extends AbstractController
      /**
      * @Route("/evenements/inscription-{id}", name="evenements_inscription")
      */
-     public function inscriptionEvenement($id, UserRepository $userRepository, EvenementsRepository $evenementsRepository){
+     public function inscriptionEvenement($id,EventsParticipantRepository $eventsParticipantRepository, UserRepository $userRepository, EvenementsRepository $evenementsRepository){
 
         $participant= new EventsParticipant();
-
         $evenements = $evenementsRepository->find($id);
 
-        $user = $this->getUser();
-        $participant->setUser($user);
-        $participant->setEvenement($evenements);
+        // checher l'evenement lié a l'utisateur afin de verifier si il est deja inscrit a l'evnement
+        $userId =$this->getUser()->getId();
+        $eventId = $evenements->getId();
+        $userP = $eventsParticipantRepository->findByPartication($eventId ,$userId);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($participant);
-        $entityManager->flush();
+        if($userP == null ){
+                $user = $this->getUser();
+                $participant->setUser($user);
+                $participant->setEvenement($evenements);
 
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($participant);
+                $entityManager->flush();
+                $this->addFlash(
+                    'success',' inscription reussie '
+                );
+
+        }else{
+        
+            $this->addFlash(
+                'warning',' vous etes deja inscrit pour cette evenement ! '
+            );
+        }
         return $this->redirectToRoute('evenements');
-
+       
 
     }
-
-    // public function inscriptionEvenement(Request $request){
-    //     $participant = new EventsParticipant();
-    //     $form = $this->createForm(InscriptionEvenementsType::class, $participant);
-    //     $form->handleRequest($request);
-
-    //     if($form->isSubmitted() && $form->isValid()){
-
-    //         $entityManager = $this->getDoctrine()->getManager();
-    //         $entityManager->persist($participant);
-    //         $entityManager->flush();
-           
-    //         return $this->redirectToRoute('evenements');
-    //     }
-    //     return $this->render('evenements/inscriptionEvenements.html.twig', [
-    //         'inscriptionEvent' => $form->createView(),
-    //     ]);
-
-    // }
-
 
      /**
      * @Route("/evenements/deinscription-{id}", name="evenements_desinscription")
      */
-    public function desinscriptionEvenement($id, EventsParticipantRepository $eventsParticipantRepository){
+    public function desinscriptionEvenement($id, EventsParticipantRepository $eventsParticipantRepository,EvenementsRepository $evenementsRepository){
 
-        $user = $this->getUser();
-        $userId = $user->getId();
+        $userId =$this->getUser()->getId();
 
-        $participant = $eventsParticipantRepository->findBy(array('id' => $userId )) ;
+        $event = $evenementsRepository->find($id);
+        $eventId = $event->getId();
 
-        dd($participant);
+        $participation = $eventsParticipantRepository->findByPartication($eventId ,$userId);
 
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($participant);
-        $manager->flush();
+        if($participation != null){
 
-        $this->addFlash(
-            'success','la categories a bien éte supprimer'
-        );
+            $manager = $this->getDoctrine()->getManager();
+            $manager->remove($participation);
+            $manager->flush();
+    
+            $this->addFlash(
+                'success',' désinscription reussie '
+            );
+        }else{
 
-        return $this->redirectToRoute('evenements');
+            $this->addFlash(
+                'warning','impossible de se désinscire, vous n\'etes pas inscrit a cette evements ! '
+            );
 
-        
+        }
+
+        return $this->redirectToRoute('profil');   
     }
     
 }

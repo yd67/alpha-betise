@@ -1,23 +1,37 @@
 
-    <div class="columns is-centered">       
+          <div class="columns is-centered is-multiline mb-6">
          {% for livre in livres %}
-         <div class="column is-3 ">
-            <div class="card ">
-                <div class="card-image">
-                  <figure class="image is-1by1">
-                    <img src=" {{asset('img/livres/' ~ livre.img )}} " alt="Placeholder image">
+        <div class="column  is-3 is-vcentered has-background-light mt-5 mr-5">
+            <div class=""  >
+                <div class="card-image  is-centered is-2   " >
+                  <figure class="image is-4by5">
+                  <a href="{{ path('produit_details',{'id':livre.id }) }}"> <img src="{{asset('img/livres/' ~ livre.img )}} {# https://picsum.photos/800/600/?random #}" alt=" image du livre"></a> 
                   </figure>
                 </div>
-                <div class="card-content">
-                  <div> Titre {{ livre.titre }}</div>
-                  <div> auteur {{ livre.auteur }}</div>
-                  <div> editeur {{ livre.editeur }}</div>
-                  <div> prix {{ livre.prix }} €</div>
-
+                <div class="content is-size-7 ">
+                    <div class="has-text-centered mt-1 has-text-weight-semibold"> <a href=" {{ path('produit_details',{'id':livre.id }) }} "> {{ livre.titre }} </a></div>                  
+                    <div class="content is-flex-direction-column">
+                          <div class=""><span class="has-text-weight-semibold">auteur</span>: {{ livre.auteur }}</div>
+                            <div> <span class="has-text-weight-semibold">edition</span>: {{ livre.editeur }}</div>
+                            <p> <span class="has-text-weight-semibold">resumer</span>:  
+                              {{  livre.resume|u.truncate(100, ' ... ') }}
+                            </P>
+                      <div class="has-text-right has-text-weight-semibold has-text-danger-dark  "> <span class="is-size-5 "> {{ livre.prix|round(2,'floor') }}</span>€</div>    
+                
+                    </div>
+                    <div class=" has-text-centered is-align-items-flex-end"> <a class="button is-warning is-focused" href=" {{path('panier_add',{'id':livre.id})}} "> <i class="far fa-shopping-bag mr-2"> </i>  ajouter au panier </a></div>
+                  
                 </div>
-              </div>
-            
-    
-     
-</div>
+              </div>   
+          </div>
       {% endfor %}
+    </div>
+
+      <div class="columns mb-6 is-centered is-4 is-mobile">
+        {{ knp_pagination_render(livres, '@KnpPaginator/Pagination/bulma_pagination.html.twig') }}
+      </div>
+
+      
+
+
+    

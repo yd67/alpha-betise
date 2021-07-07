@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -20,10 +20,11 @@
         {% endblock %}
 
     </head>
-    <body>
-      
-        <header>
-        <nav class="navbar mb-6" role="navigation" aria-label="main navigation">
+    <body >
+    
+        <header class="medium" >
+          <div class="container">  
+        <nav class="navbar " role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
               <a class="navbar-item" href="#">
                 <img src="{{asset('img/logo.svg')}} " width="112" height="28">
@@ -39,43 +40,98 @@
             <div id="navbarBasicExample" class="navbar-menu">
               <div class="navbar-end">
                 
-              </div>
-          
+              </div>         
                  <div class="navbar-end">
                     <div class="navbar-item">
-                        <a class="navbar-item" href="">acceuil</a>
-                        <a class="navbar-item" href=""> rencontre</a>
-                        <a class="navbar-item" href="">conseil lecture</a>
-                        <a class="navbar-item" href=""> contact</a>
-                    <div class="buttons">
-                        {% if app.user %}
-
-                        <a class="button is-primary" href="{{path('app_logout')}} "> Déconnexion</a>
-                        {% else %}
-                        <a class="button is-primary" href="{{path('app_login')}} "> connexion</a> 
+                        <a class="navbar-item" href=" {{path('home')}} "> <i class="far fa-home mr-1"></i>  Acceuil</a>
+                        <a class="navbar-item" href="{{path('evenements')}} "><i class="far fa-calendar-alt mr-1"></i> Rencontre</a>
+                        <a class="navbar-item" href=" {{path('conseil_lecture')}} "> <i class="far fa-book mr-1"></i> Conseil Lecture</a>
+                        <a class="navbar-item" href=" {{path('librairie')}} "> <i class="far fa-book-reader mr-1"></i>La Librairie </a>
+                        <a class="navbar-item" href=" {{path('contact')}} "><i class="far fa-address-book mr-1"></i> Contact</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="navbar-item" href=" {{path('admin')}} "><i class="fas fa-user-cog mr-1"></i>Admin</a>
                         {% endif %}
-                    </div>
+                        {% if app.user %}
+                        <div class="navbar-item has-dropdown is-hoverable ">
+                            <a class="navbar is-align-items-center" href="" >
+                                <span> {{ app.user.nom|upper }} </span>
+                                <figure class="image is-32x32" style="margin-right: 0.5em"><img class="is-rounded" src=" {{asset('img/profil-user/' ~ app.user.img)}} "></figure>
+                               
+                             </a> 
+
+                             <div class="navbar-dropdown is-right">
+                                 <a class="navbar-item" href=" {{path('profil')}} " >
+                                    <span class="icon is-small">
+                                        <i class="fa fa-user-o"></i> 
+                                    </span> Profil
+                                </a>
+                                    <hr class="navbar-divider">
+                                    <a class="navbar-item" href="{{path('app_logout')}}">
+                                        <span class="icon is-small">
+                                            <i class="fas fa-power-off has-text-danger-dark "></i>
+                                        </span> <span class="ml-2">Déconnexion</span> 
+                                    </a>
+                                </div>
+                         </div>
+                        {% else %}
+                        <a class="button  " href="{{path('app_login')}} "> <i class="fa fa-sign-in-alt mr-1 "></i> Connexion </a> 
+            
+                        {% endif %}
                     </div>
                 </div>
             </div>
           </nav>
-          
-    </header>  
+            {% if app.request.get('_route') != 'evenements' %}  {# si on est pas sur la route evenements#}
+            <div class="column has-text-right mr-4 mb-4"> 
+                {% if  app.session.get('panier')|length  > 0 %}  
+                     <span class="panier-contenue has-text-centered  ">{{ app.session.get('panier')|length}} </span>
+                {% endif %}
+                
+                <a href=" {{path('panier')}} " style="color: #00000098;"> <i class="far fa-shopping-bag fa-3x"></i></a>
+                <P>Panier</P>
+            </div>
+            {% endif %} 
+        </div>   
+    </header>
+    
+        {% if app.request.get('_route') == 'evenements' %}
+            <div class="column has-text-right mr-2 mb-4  bg-evenement-page"> 
+                {% if  app.session.get('panier')|length > 0 %}
+                <span class="panier-contenue has-text-centered "> {{ app.session.get('panier')|length}} </span> 
+                {% endif %}
+
+                <a href=" {{path('panier')}} " style="color: rgba(228, 213, 213, 0.938);"> <i class="far fa-shopping-bag fa-3x"></i></a>
+                <p>Panier</p>
+            </div>
+        {% endif %}
 
      {% block body %}
         
         {% endblock %}
-
+           <footer class="footer  has-background-black">
+               <div class="container">
+                    <h3>footer </h3>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium alias suscipit quae, porro magnam dignissimos eveniet similique? Eos, odio est. Sit illo error aperiam culpa sed quas. Commodi, quis obcaecati.
+                        Debitisodio dignissimos alias eveniet nemo voluptates tenetur dolor delectus optio velit dolorum recusandae facilis, dolore corrupti maiores minus! Odio rem magnam non.
+                        Cupiditate necessitatibus qui assumenda excepturi, magni dolor error quam placeat fugiat neque reprehenderit, harum ipsum aperiam doloremque officia nam maieniet tenetur molestias ex sed enim soluta.
+                    </p>
+               </div>
+             
+          </footer>
 
 
         <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js" integrity="sha256-rPPF6R+AH/Gilj2aC00ZAuB2EKmnEjXlEWx5MkAp7bw=" crossorigin="anonymous"></script>
 
         {# <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
 	 #}
+     
          <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
          <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
          {# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script> #}
-        <script src=" {{asset('js/main.js')}} ">  </script>
+         <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVu3tKfzjh0Iovx2sgCh5YQUXxdyvqXxI&callback=initMap"></script>>
+         <script src=" {{asset('js/main.js')}} ">  </script>
+        
         {% block javascripts %}
             {#{{ encore_entry_script_tags('app') }}#}
         {% endblock %}

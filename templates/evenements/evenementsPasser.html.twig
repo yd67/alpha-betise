@@ -7,22 +7,36 @@
 {% endblock  %}
 {% block body %}
 
- <div class="container">
+ <div class="container has-text-centered ">
+
   {% for event in events %}
       
-  
-  <div class="box">
-    <div> {{event.title}}</div>
+  <div class=" column has-text-white mb-6 ">
     <div>
+      <figure>
+        <img style="max-height: 250px; width:400px" src=" {{asset('img/evenements/' ~ event.img )}} " alt="">
+      </figure>
+     </div> 
+    <div> <h2 class="title is-2 has-text-white">{{event.title}}</h2> </div>
+    <div class="mb-3">
+            <div>   date de l'evenement:  {{event.start|date("d/m/Y")}} </div> 
             <div>lieux :  {{event.lieux}}</div>
-            <div> date de l'evenement:  {{event.start|date("d/m/Y")}}</div> 
+            <div> sur reservation :
+              {% if event.getReservation() == 1 %}
+              oui  , prix de la reservation:{{event.prix}} € , maximun de personne: {{event.maxPersonne}} 
+              {% else %}
+              non
+            {% endif %}   
+            </div>
     </div>  
-     <div> <img src=" {{asset('img/evenements/' ~ event.img )}} " alt=""></div> 
- 
-       <div> {{event.description}}</div>
+
+       <div> description de l'evenement  : <br>
+          {{event.description}}</div>
   </div> 
 
   {% endfor %}
+
+   <a class="button" href=" {{path('evenements')}} ">Evenements a venir </a>
   </div>
        
 {% endblock %}

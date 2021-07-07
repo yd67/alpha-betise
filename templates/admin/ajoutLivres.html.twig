@@ -1,11 +1,11 @@
-{% extends 'base.html.twig' %}
+{% extends "admin/baseAdmin.html.twig" %}
 
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
 
         <div>
-            {{ form_start(ajoutForm) }}
+            {{ form_start(ajoutForm, {attr: {'novalidate': 'novalidate'}}) }}
 
             {{ form_end(ajoutForm) }}
         </div>

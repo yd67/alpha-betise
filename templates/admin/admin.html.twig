@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/baseAdmin.html.twig' %}
 
         {% block stylesheets %}
             <link rel="stylesheet" href="">
@@ -30,7 +30,7 @@
                         <th>email</th>
                         <th>roles</th>
                         <th>Newletter</th>
-                        <th></th>
+                        <th>verif</th>
                     </tr>
                 </thead> 
                 <tbody>
@@ -44,46 +44,37 @@
                         <td> {{user.email}} </td>
                         <td> {{user.roles|join(' + ')|lower }} </td>
                         <td> {{user.newsletter}} </td>
+                        <td> {{user.isVerified}} </td>
                       </tr> 
                     {% endfor %}
                 </tbody>       
                 </table>
-                <a class="button is-link is-rounded is-outlined" href=" {{path('ajout_livres')}} ">ajouter un article</a> <br>
-                <a class="button is-link is-rounded is-outlined" href=" {{path('evenements_creation')}} ">ajouter un evenement</a>
             </div>
-            
-            <div class="collum is-one-quarter">
-                    <table class="table text-center ">
-                        <thead>
-                            <tr></tr>
-                                <th>liste de categories </th>
-                                <th>action</th>
-                            </tr>
-                        </thead>
-                        <body>
-                            {% for categorie in categories %}
-                            <tr>
-                                <td> {{categorie.nomCategory}} </td>
-                                <td>
-                                    <a href=" {{path('delete_category',{'id':categorie.id} )}} ">supprimer</a>
-                                </td>
-                            </tr>  
-                            {% endfor %}
-                           
-                        </body>
-                    </table>  
-                         <a class=" button is-link is-rounded is-outlined" href=" {{path('ajout_category')}} ">ajouter une categories</a>       
-            </div>
+
         </div>
 
-        <table>
-            {% for livre in livres %}
-             {{ livre.titre }}
-             {{livre.category.nomCategory}}
-             
-                
-            {% endfor %}
-        </table>
+        <div class="collum is-4">
+            <table class="table text-center ">
+                <thead>
+                    <tr></tr>
+                        <th>liste de categories </th>
+                        <th>action</th>
+                    </tr>
+                </thead>
+                <body>
+                    {% for categorie in categories %}
+                    <tr>
+                        <td> {{categorie.nomCategory}} </td>
+                        <td>
+                            <a href=" {{path('delete_category',{'id':categorie.id} )}} ">supprimer</a>
+                        </td>
+                    </tr>  
+                    {% endfor %}
+                   
+                </body>
+            </table>  
+        </div>
+    
     </div>
 
 
