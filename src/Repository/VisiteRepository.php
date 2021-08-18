@@ -23,7 +23,7 @@ class VisiteRepository extends ServiceEntityRepository
     //  * @return Visite[] Returns an array of Visite objects
     //  */
     
-    public function findIp(int $ip)
+    public function findIp($ip)
     {
         return $this->createQueryBuilder('v')
             ->andWhere('v.ip = :val')
