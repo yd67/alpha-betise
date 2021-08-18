@@ -24,8 +24,8 @@
     </div>
     <div class="column ">
 
-      <div class="block content">
-        <div> {{livre.titre}} </div>
+      <div class="block ">
+        <div> <h2 class="title titre-co">{{livre.titre}} </h2></div>
         <div> <span  class="has-text-weight-semibold">Auteur</span> : {{ livre.auteur }}</div>
         <div> <span  class="has-text-weight-semibold">edition</span> : {{ livre.editeur }}</div>
         {% if noteM.0.0.1 != null %}
@@ -35,14 +35,16 @@
 
         {% endif %}
         <div> en stock  </div>
-        <div> <a class="button is-warning is-focuced" href=" {{path('panier_add',{'id':livre.id})}} "> <i class="far fa-shopping-bag mr-2"> </i>  ajouter au panier </a></div>
+        <div class="mb-2 mt-2"> <a class="button is-warning is-focuced" href=" {{path('panier_add',{'id':livre.id})}} "> <i class="far fa-shopping-bag mr-2"> </i>  ajouter au panier </a></div>
         <div> <span  class="has-text-weight-semibold">Code EAN / ISBN </span> : {{livre.code}}   </div>
         <div> <span class="has-text-weight-semibold">presentation de l'ouvrage</span> : <br>
-              <p >{{livre.resume}}  </p>  
+              <p class="content is-small" >{{livre.resume}}  </p>  
        </div>
-        <div> commentaire du libraire </div>
+        <div> <span class="has-text-weight-semibold">commentaire du libraire</span>: <br>
+          <p class="content is-small"> {{livre.avisLibraire}} </p>
+        </div>
 
-        <div>
+        <div class="mt-4 mb-3">
           <span class="fas fa-star " data-star="1"></span>
           <!-- 
                   --><span class="fas fa-star " data-star="2"></span>
@@ -53,22 +55,23 @@
           <!--
                   --><span class="fas fa-star" data-star="5"></span>
         </div>
+
         {% if app.user %}
-        {{ form_start(noteForm) }}
+              {{ form_start(noteForm) }}
 
-        {{ form_row(noteForm.note) }}
+                 {{ form_row(noteForm.note) }}
 
-        <button type="submit"> noter</button>
-        {{ form_end(noteForm) }}
+                  <button type="submit"> noter</button>
+              {{ form_end(noteForm) }}
         {% else %}
-        <a href=" {{path('app_login')}} " class="button">noter</a>
+             <a href=" {{path('app_login')}} " class="button">noter</a>
         {% endif %}
 
       </div>
     </div>
   </div>
 
-<p class="is-title is-4">Commenter</p>
+<p class="is-title is-4 mb-5">Commentaires </p>
   {% for com in livre.commentaires %}
   <article class="media">
     <figure class="media-left">
@@ -79,12 +82,12 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong> {{com.user.prenom}} {{com.user.nom}} </strong>
+          <strong> {{com.user.prenom}} {{com.user.nom}} </strong> <small>{{com.createdAt|format_datetime( locale='fr') }}</small>
           <br>
 
           {{ com.contenue }}
           <br>
-          - {{com.createdAt|date() }}</small>
+         
         </p>
       </div>
 
@@ -112,7 +115,7 @@
       <br>
       <div class="field">
         <p class="control">
-          <button class="button" type="submit">Post comment</button>
+          <button class="button" type="submit">Commenter</button>
         </p>
       </div>
       {{form_end(commentaire)}}
@@ -125,18 +128,17 @@
       <div class="media-content">
         <div class="field">
           <p class="control">
-            <textarea class="textarea" placeholder="Add a comment..."></textarea>
+            <textarea class="textarea" placeholder="ajouer un commentaire"></textarea>
           </p>
         </div>
         <div class="field">
           <p class="control">
-            <a  class="button has-text-right" href="{{path('app_login')}} ">Post comment</a>
+            <a  class="button has-text-right" href="{{path('app_login')}} ">Commenter</a>
           </p>
         </div>
       </div>
     </article>
   </div>
-
 
   {% endif %}
 </div>

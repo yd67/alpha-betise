@@ -18,41 +18,59 @@
 {% endfor %}
 
     <div class="container">
-        <div class="columns">
-            <div class="column  is-three-quarters">
-                <table class="table text-center ">
-                   <thead>
+        <div class="column">
+            <h3 class="title has-text-centered ">les visiteurs du site  </h3>
+            <table class="table">
+                <thead>
                     <tr>
-                        <th>N°</th>
-                        <th>profil</th>
-                        <th>Nom</th>
-                        <th>Prenom</th>
-                        <th>email</th>
-                        <th>roles</th>
-                        <th>Newletter</th>
-                        <th>verif</th>
+                        <th>Ip</th>
+                        <th>Date derniere visite</th>
+                        <th>Nb visite</th>
                     </tr>
-                </thead> 
+
+                </thead>
                 <tbody>
-                    {% for user in users %} 
-                    
-                    <tr>
-                        <td> {{loop.index}} </td>
-                        <td> <img src=" {{asset('img/profil-user/' ~ user.img )}} " alt="photo profil de l'utilisateur" width="60px" height="60px" > </td>
-                        <td> {{user.nom}} </td>
-                        <td> {{user.prenom}} </td>
-                        <td> {{user.email}} </td>
-                        <td> {{user.roles|join(' + ')|lower }} </td>
-                        <td> {{user.newsletter}} </td>
-                        <td> {{user.isVerified}} </td>
-                      </tr> 
+                    {% for v in visite %}
+                        <tr>
+                            <td> {{v.ip}} </td>
+                            <td> {{v.dateVisite|date(' d-M-y H:i:s ', "Europe/Paris")}} </td>
+                            <td> {{ v.nbVisite}} </td>
+                        </tr>
                     {% endfor %}
-                </tbody>       
-                </table>
-            </div>
-
+                </tbody>
+            </table>
         </div>
-
+        <h3 class="title has-text-centered">les utilisateurs</h3>
+<div class="columns">
+    <div class="column  is-three-quarters">
+        <table class="table text-center ">
+           <thead>
+            <tr>
+                <th>profil</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>email</th>
+                <th>Newletter</th>
+            </tr>
+        </thead> 
+        <tbody>
+            {% for user in users %} 
+            
+            <tr>
+                <td> <img src=" {{asset('img/profil-user/' ~ user.img )}} " alt="photo profil de l'utilisateur" width="60px" height="60px" > </td>
+                <td> {{user.nom}} </td>
+                <td> {{user.prenom}} </td>
+                <td> {{user.email}} </td>
+                <td> {{user.newsletter}} </td>
+              </tr> 
+            {% endfor %}
+        </tbody>       
+        </table>
+    </div>
+   
+</div>
+ <h3 class="title has-text-centered">Gestion des categories </h3>
+ 
         <div class="collum is-4">
             <table class="table text-center ">
                 <thead>

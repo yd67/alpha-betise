@@ -3,9 +3,15 @@
 {% block body %}
 <div>
     {{ form_start(category )}}
-
+ 
+    {{form_row(category.nom_category,{'attr':{'class':'input'}})}}
+    
+    <div class="mt-3">
+        <button class="button is-info is-outlined"> créer </button>
+    </div>
     {{ form_end(category) }}
 
 </div>
+        
 
 {% endblock %}

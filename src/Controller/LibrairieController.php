@@ -17,4 +17,19 @@ class LibrairieController extends AbstractController
             'controller_name' => 'LibrairieController',
         ]);
     }
+    /**
+     * @Route("/librairie/mention-legal", name="mention_legal")
+     */
+    public function mentionLegal(){
+
+
+        return $this->render('librairie/mentionLegal.html.twig');
+    }
+    /**
+     * @Route("/librairie/info-paiement", name="info_paiement")
+     */
+    public function infoPaiment (){
+
+        return $this->render('librairie/infoPaiement.html.twig');
+    }
 }

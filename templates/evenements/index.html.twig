@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EvenementsController!{% endblock %}
+{% block title %}Alpha Betise Rencontre{% endblock %}
 
 {% block stylesheets %}
 
@@ -23,9 +23,9 @@
       
 <!-- *****************************   fin message flash  ******************************** --> 
 
-<div class="container">
+<div class="container mb-6">
    <div class="calendrier">
-     <div class="block"> <h1 class="title 1"> bienvenue sur la page rencontres de d'Alpha Betise </h1></div>
+     <div class="block"> <h1 class="title titre-co"> bienvenue sur la page rencontres de l'Alpha Betise </h1></div>
      <div class="image"> </div>
 
         <div class="swiper-container">
@@ -75,11 +75,15 @@
                         oui  , prix de la reservation:{{event.prix}} € , maximun de personne: {{event.maxPersonne}} 
                             {% if app.user %}
                                 <div class="column mb-3">
-                                  {% if app.user %}
-                                    <a class="button is-dark is-inverted " href=" {{ path('evenements_inscription',{'id':event.id}) }} "> s'inscrire a cette evenement</a>   
-                                  {% endif %}
-                                    </div> 
-                             {% else %}
+                                    {% if app.user %}
+                                          {% if event|length >= event.maxPersonne and maxPersonne != null %}
+                                            <span style="color:orange">impossible de s'incrire pour cette evenement le nombre maximun de personne atteint</span> 
+                                          {% else %}
+                                            <a class="button is-dark is-inverted " href=" {{ path('evenements_inscription',{'id':event.id}) }} "> s'inscrire a cette evenement</a>
+                                          {% endif %}
+                                    {% endif %}
+                                      </div> 
+                            {% else %}
                                 <div class="column mb-3">
                                    <a class="button" href=" {{path('app_login')}} ">s'inscrire</a>
                                 </div>
@@ -96,6 +100,7 @@
                 {{event.description}}
               </div>
       </div> 
+      <hr>
        
   {% endfor %}
 

@@ -1,95 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello LibrairieController!{% endblock %}
+{% block title %}Alpha Betise Librairie {% endblock %}
 
 {% block body %}
 
-<div class="container " >
+<div class="container ">
 
-<h1 class="title is-3 has-text-centered mb-3 "> A Propos </h1>
+    <h1 class="title is-3 has-text-centered mb-3 titre-co"> A Propos </h1>
 
-<section class="section">
+    <section class="section">
         <div class="columns">
-                <div class="column is-centered is-7">
-                    <div>
-                        <figure>
-                            <img class="is-rounded" src="{{ asset('img/home-bg2.jpg') }}" alt="">
-                        </figure>
-                    </div>
+            <div class="column is-centered is-7">
+                <div>
+                    <figure>
+                        <img class="is-rounded" src="{{ asset('img/home-bg2.jpg') }}" alt="">
+                    </figure>
                 </div>
-                <div class="column content">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Expedita sequi ipsum sit,
-                         quos ab porro architecto? Sequi inventore consequuntur excepturi? Tempora cumque, explicabo 
-                         minima ea maxime id nisi vitae, in delectus assumenda molestias sint aspernatur blanditiis 
-                         aliquam inventore! Ea quae dolorum dolore fugit hic ratione, nisi ad excepturi corporis quam.
-                        </p>
+            </div>
+            <div class="column content is-vcentered ">
+                <p class=" content">
+                    L'alpha betise est une librairie en ligne realisé par moi meme <a
+                        href="https://www.linkedin.com/in/yvens-darius"> Darius Yvens </a>
+                    l'ensemble des informations du site sont fictiif .
+                </p>
 
-                         <p> 
-                         Possimus quod ipsum sit ullam fugiat nisi tenetur necessitatibus? Recusandae et nostrum suscipit natus vel
-                          expedita cum incidunt. Tenetur eaque fuga illo aliquam nostrum 
-                         sunt quia beatae officia quibusdam earum, quasi iste assumenda 
-                        ad optio deserunt consectetur. Impedit neque rerum consectetur aut sit?
+                <p class="content">
+                    La réalisation de ce site a pour but de developper/montrer mes competences .
+                </p>
 
-                        <p><a href=" {{path('contact')}} ">nous contacter</a></p>
-                        
-                        </p>
+                <p class=" content">
+                    Pour la realisation de ce site j'ai utiliser le framework Symfony .
 
-                </div>
+                <p>
+                    pour plus d'information voir le
+                    <a href=" {{path('mention_legal')}} ">details du site </a>
+                </p>
+
+                </p>
+
+            </div>
         </div>
-</section>
+    </section>
 
-<section class="section">
-    <div class="columns">
-        <div class="column has-text-centered "> <i class="fas fa-phone-alt"></i> 0781245190 </div>
-        <div class="column has-text-centered "> <span style="color: red;"><i class="fas fa-map-marker-alt"></i></span>  Rue batiment 67000 strasbourg</div>
-    </div>
-</section>
-
-<section class="section">
-<div class="columns">
-    <div class="column is-7">
-        <div class="map">
-            <div class="column" id="map"> </div>
+    <section class="section">
+        <div class="columns">
+            <div class="column has-text-centered "> <i class="fas fa-phone-alt"></i> 0781245190 </div>
+            <div class="column has-text-centered "> <span style="color: red;"><i
+                        class="fas fa-map-marker-alt"></i></span> 12 Rue de l'Extenwoerth, 67100 Strasbourg</div>
         </div>
-    </div>
-    <div class="column has-text-centered">
-        <table>
-            <thead>
-                <tr>
-                    <th class="title is-4"> Horaires d'ouverture :</th>
-                </tr>    
-            </thead>
-            <tbody> 
-                <tr>
-                     <td>lundi</td> 
-                     <td>9h30 - 18h30</td>
-                </tr>
-                <tr>
-                     <td>mardi</td>
-                     <td>9h30 - 18h30</td>
-                </tr>
-                <tr> 
-                    <td>mercredi</td>
-                    <td>9h30 - 18h30</td>
-                </tr>
-                <tr>
-                     <td>jeudi</td>
-                     <td>9h30 - 18h30</td>
-                </tr>
-                <tr>
-                     <td>vendredi</td> 
-                     <td>9h30 - 18h30</td>
-                 </tr>
-                <tr>
-                     <td>samedi</td> 
-                     <td>8h45 - 12h30</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</section>
+    </section>
+
+
+
+    <section class="section">
+        <div class="columns">
+            <div class="column is-7">
+
+                <div class="column " id="mapid"></div>
+
+            </div>
+            <div class="column has-text-centered">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="title is-4"> Horaires d'ouverture :</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>lundi</td>
+                            <td>9h30 - 18h30</td>
+                        </tr>
+                        <tr>
+                            <td>mardi</td>
+                            <td>9h30 - 18h30</td>
+                        </tr>
+                        <tr>
+                            <td>mercredi</td>
+                            <td>9h30 - 18h30</td>
+                        </tr>
+                        <tr>
+                            <td>jeudi</td>
+                            <td>9h30 - 18h30</td>
+                        </tr>
+                        <tr>
+                            <td>vendredi</td>
+                            <td>9h30 - 18h30</td>
+                        </tr>
+                        <tr>
+                            <td>samedi</td>
+                            <td>8h45 - 12h30</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
 </div>
 

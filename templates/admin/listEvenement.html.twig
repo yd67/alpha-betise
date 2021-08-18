@@ -1,0 +1,31 @@
+{% extends "admin/baseAdmin.html.twig" %}
+
+{% block body %}
+<div class="column">
+
+<table class="table text-center table is-hoverable  ">
+   <thead>
+    <tr>
+        <th>nom</th>
+        <th>date debut</th>
+        <th>date fin </th>
+        <th></th>
+    </tr>
+</thead> 
+<tbody>
+    {% for e in listEvents  %} 
+    
+    <tr>
+        <td> {{ e.title }} </td>
+        <td> {{ e.start|date(' d-M-y H:i ', "Europe/Paris") }} </td>
+        <td> {{ e.end|date(' d-M-y H:i ', "Europe/Paris") }} </td>
+        <td> <a href=" {{path('evenements_inscrit',{'id':e.id })}} ">voir les inscrits</a> </td>
+      </tr> 
+    {% endfor %}
+</tbody>       
+</table>
+    
+</div>
+        
+
+{% endblock %}

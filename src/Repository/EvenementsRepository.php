@@ -35,6 +35,14 @@ class EvenementsRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function findOrderAll(string $order)
+    {
+        return $this->createQueryBuilder('e')
+            -> orderBy('e.id', $order)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 /*
      $query = $entityManager->createQuery("
         SELECT e FROM App\Entity\Evenements e WHERE e.end > :dateA 

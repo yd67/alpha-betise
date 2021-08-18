@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %} Alpha-betise Aceuil!{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href=" {{asset('css/home.css')}}">
+<link rel="stylesheet" href=" {{asset('css/home.css')}}">
 {% endblock %}
 
 {% block body %}
@@ -22,124 +22,139 @@
     <div class="container ">
         <div class="columns is-centered">
             <div class="column is-10 has-text-centered ">
-                <h2 class="title is-3">Qui sommes nous </h2>
+                <h2 class="title is-3"> <span class="titre-co">Qui sommes nous</span> </h2>
                 <p class="is-size-5">
-                L’Alpha-Bêtise est une librairie spécialisée dans les ouvrages jeunesse.
-                La librairie propose des albums pour les enfants : Bébés dès la naissance (0 à 3 ans), enfants et jusqu’au romans pour ados.
-                Elle a également quelques romans graphiques pour les jeunes adultes
+                    L’Alpha-Bêtise est une librairie spécialisée dans les ouvrages jeunesse.
+                    La librairie propose des albums pour les enfants : Bébés dès la naissance (0 à 3 ans), enfants et
+                    jusqu’au romans pour ados.
+                    Elle a également quelques romans graphiques pour les jeunes adultes
                 </p>
+                <div class="column has-text-centered">
+                    <a class="button is-link is-rounded is-outlined " href=" {{path('librairie')}} ">en savoir plus</a>
+                </div>
             </div>
-        </div>      
- </div>
-</section> 
+        </div>
+    </div>
+</section>
 {# ************************** section Evenement a venir ******************* ************** #}
 {% if evenements is not null %}
 
 <section class="section">
 
     <div class="columns is-centered">
-       <div class="column has-text-centered"> 
-           <h2 class="title is-3">Evenement a venir </h2> 
-       </div>
+        <div class="column has-text-centered">
+            <h2 class="title is-3"> <span class="titre-co">Evenement a venir</span> </h2>
+        </div>
     </div>
 
     <div class="columns is-centered ">
-    {% for event in evenements %}
+        {% for event in evenements %}
 
-           <div class="has-text-centered ">   
-               <div>
-                    <figure>
-                        <img style="max-height: 250px; width:400px" src=" {{asset('img/evenements/' ~ event.img )}} " alt="">
-                    </figure>
-               </div> 
-               <div> <h2 class="subtitle is-4 ">{{event.title}}</h2> </div>
-               <div class="mb-3">
-                       <div>   date de l'evenement:  {{event.start|date("d/m/Y")}} </div> 
-           
-               </div>  
-           </div> 
-           
-           {#   {% if app.user.id == event.eventsParticipants.userId and event.id == event.eventsParticipants.evenementId %}
-               <a class="button is-dark is-inverted " href=" {{ path('evenements_inscription',{'id':event.id}) }} "> s'inscrire a un evenement</a>
-               {% endif %} #}
-               
-           
-           {# <a href="{{ path(' evenements_desinscription',{'id':p.user.id}) }}">se désinscrire </a> 
-       #}
+        <div class="has-text-centered ">
+            <div>
+                <figure>
+                    <img style="max-height: 250px; width:400px" src=" {{asset('img/evenements/' ~ event.img )}} "
+                        alt="">
+                </figure>
+            </div>
+            <div>
+                <h2 class="subtitle is-4 ">{{event.title}}</h2>
+            </div>
+            <div class="mb-3">
+                <div> date de l'evenement: {{event.start|date("d/m/Y")}} </div>
 
-    {% endfor %}
-   </div>
+            </div>
+        </div>
+
+        {# {% if app.user.id == event.eventsParticipants.userId and event.id == event.eventsParticipants.evenementId %}
+        <a class="button is-dark is-inverted " href=" {{ path('evenements_inscription',{'id':event.id}) }} "> s'inscrire
+            a un evenement</a>
+        {% endif %} #}
+
+
+        {# <a href="{{ path(' evenements_desinscription',{'id':p.user.id}) }}">se désinscrire </a>
+        #}
+
+        {% endfor %}
+    </div>
 </section>
 {% endif %}
-  {# ************************** section ouvrages ******************* ************** #}
+{# ************************** section ouvrages ******************* ************** #}
 <section class="section">
     <div class="columns is-centered">
-         <div class="column has-text-centered"> 
-             <h2 class="title is-3">Quelques ouvrages</h2> 
-         </div>
+        <div class="column has-text-centered">
+            <h2 class="title is-3"> <span class="titre-co">Quelques ouvrages</span></h2>
+        </div>
     </div>
-   
+    <hr>
     <div class="columns is-centered is-multiline mb-6">
         {% for livre in livres %}
-       <div class="column  is-3 is-vcentered has-background-light mt-5 mr-5">
-           <div class=""  >
-               <div class="card-image  is-centered is-2   " >
-                 <figure class="image is-4by5">
-                 <a href="{{ path('produit_details',{'id':livre.id }) }}"> <img src="{{asset('img/livres/' ~ livre.img )}} {# https://picsum.photos/800/600/?random #}" alt=" image du livre"></a> 
-                 </figure>
-               </div>
-               <div class="content is-size-7 ">
-                   <div class="has-text-centered mt-1 has-text-weight-semibold"> <a href=" {{ path('produit_details',{'id':livre.id }) }} "> {{ livre.titre }} </a></div>                  
-                   <div class="content is-flex-direction-column">
-                         <div class=""><span class="has-text-weight-semibold">auteur</span>: {{ livre.auteur }}</div>
-                           <div> <span class="has-text-weight-semibold">edition</span>: {{ livre.editeur }}</div>
-                           <p> <span class="has-text-weight-semibold">resumer</span>:  
-                             {{  livre.resume|u.truncate(100, ' ... ') }}
-                           </P>
-                     <div class="has-text-right has-text-weight-semibold has-text-danger-dark  "> <span class="is-size-5 "> {{ livre.prix|round(2,'floor') }}</span>€</div>    
-               
-                   </div>
-                   <div class=" has-text-centered is-align-items-flex-end"> <a class="button is-warning is-focused" href=" {{path('panier_add',{'id':livre.id})}} "> <i class="far fa-shopping-bag mr-2"> </i>  ajouter au panier </a></div>
-                 
-               </div>
-             </div>   
-         </div>
-     {% endfor %}
-   </div>
-   <div class="columns is-centered">
-       <div class="column has-text-centered">
-           <a class="is-size-5" href=" {{path('conseil_lecture')}} ">voir plus</a>
-       </div>
-   </div>
+        <div class="column  is-3 is-vcentered has-background-light mt-5 mr-5">
+            <div class="">
+                <div class="card-image  is-centered is-2   ">
+                    <figure class="image is-4by5">
+                        <a href="{{ path('produit_details',{'id':livre.id }) }}"> <img
+                                src="{{asset('img/livres/' ~ livre.img )}} {# https://picsum.photos/800/600/?random #}"
+                                alt=" image du livre"></a>
+                    </figure>
+                </div>
+                <div class="content is-size-7 ">
+                    <div class="has-text-centered mt-1 has-text-weight-semibold"> <a
+                            href=" {{ path('produit_details',{'id':livre.id }) }} "> {{ livre.titre }} </a></div>
+                    <div class="content is-flex-direction-column">
+                        <div class=""><span class="has-text-weight-semibold">auteur</span>: {{ livre.auteur }}</div>
+                        <div> <span class="has-text-weight-semibold">edition</span>: {{ livre.editeur }}</div>
+                        <p> <span class="has-text-weight-semibold">resumer</span>:
+                            {{ livre.resume|u.truncate(100, ' ... ') }}
+                        </P>
+                        <div class="has-text-right has-text-weight-semibold has-text-danger-dark  "> <span
+                                class="is-size-5 "> {{ livre.prix|round(2,'floor') }}</span>€</div>
+
+                    </div>
+                    <div class=" has-text-centered is-align-items-flex-end"> <a class="button is-warning is-focused"
+                            href=" {{path('panier_add',{'id':livre.id})}} "> <i class="far fa-shopping-bag mr-2"> </i>
+                            ajouter au panier </a></div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="columns is-centered">
+        <div class="column has-text-centered">
+            <a class=" button is-link is-rounded is-outlined  is-size-5" href=" {{path('conseil_lecture')}} ">voir
+                plus</a>
+        </div>
+    </div>
 
 </section>
 {# ************************** section informations librairie ******************* ************** #}
 
-<section class="section">
+<section class="section mb-6">
     <div class="container">
+        <div class="column has-text-centered">
+            <h2 class="title is-3"> <span class="titre-co">La Librairie </span></h2>
+        </div>
+        <hr>
         <div class="columns">
-            <div class="column is-7">
-                <div class="map">
-                    <div class="column" id="map"> </div>
-                </div>
-            </div>
+            <div class="column is-8" id="mapid"></div>
             <div class="column">
                 <table>
                     <thead>
                         <tr>
                             <th class="title is-4"> Horaires d'ouverture :</th>
-                        </tr>    
+                        </tr>
                     </thead>
-                    <tbody> 
+                    <tbody>
                         <tr>
-                            <td>lundi</td> 
+                            <td>lundi</td>
                             <td>9h30 - 18h30</td>
                         </tr>
                         <tr>
                             <td>mardi</td>
                             <td>9h30 - 18h30</td>
                         </tr>
-                        <tr> 
+                        <tr>
                             <td>mercredi</td>
                             <td>9h30 - 18h30</td>
                         </tr>
@@ -148,18 +163,22 @@
                             <td>9h30 - 18h30</td>
                         </tr>
                         <tr>
-                            <td>vendredi</td> 
+                            <td>vendredi</td>
                             <td>9h30 - 18h30</td>
                         </tr>
                         <tr>
-                            <td>samedi</td> 
+                            <td>samedi</td>
                             <td>8h45 - 12h30</td>
+                        </tr>
+                        <tr>
+                            <td>dimanche</td>
+                            <td>fermé</td>
                         </tr>
                     </tbody>
                 </table>
-             </div>
+            </div>
         </div>
     </div>
- </section>
+</section>
 
 {% endblock %}

@@ -22,6 +22,10 @@ class LivresRepository extends ServiceEntityRepository
     // /**
     //  * @return Livres[] Returns an array of Livres objects
     //  */
+    public function findAll()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    }
     /*
     public function findByExampleField($value)
     {

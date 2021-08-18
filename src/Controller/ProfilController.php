@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\UserType;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\EventsParticipantRepository;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,6 +33,47 @@ class ProfilController extends AbstractController
         return $this->render('profil/index.html.twig', [
             'ageUser' => $age,
             'eventsP' => $eventUserP
+        ]);
+    }
+
+     /**
+     * @Route("/profil/update", name="profil_update")
+     */
+    public function updateProfil(UserRepository $userRepository, Request $request)
+    {
+        $userId = $this->getUser()->getId();
+        $user = $userRepository->find($userId);
+        //recuperer l'ancien image
+        $oldNomImg = $user->getImg();
+        $oldCheminImg = $this->getParameter('dossier_photos_user').'/'. $oldNomImg;
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->get('img')->getData() !== null){ 
+                if (file_exists($oldCheminImg)) {
+                    unlink($oldCheminImg); 
+                } 
+                $infoImg = $form['img']->getData();
+                $extensionImg = $infoImg->guessExtension();
+                $nomImg = time() . '.' . $extensionImg;
+                $infoImg->move($this->getParameter('dossier_photos_user'), $nomImg);
+                $user->setImg($nomImg);    
+            }else{
+                $user->setImg($oldNomImg);
+            }
+        
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($user);
+            $manager->flush();
+            $this->addFlash(
+                'success',
+                'Les informations ont bien été modifié'
+            );
+            return $this->redirectToRoute('profil');
+        }
+        return $this->render('profil/updateProfil.html.twig', [
+            'userForm' => $form->createView()
         ]);
     }
 }

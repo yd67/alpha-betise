@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-    {% block title %}{% endblock %}
+{% block title %}Aplha Betise Panier{% endblock %}
 
 {% block body %}
 
@@ -8,68 +8,71 @@
 <section class="section mb-4">
 
 
-<div class="container  is-vcentered">
-       <h1 class="title is-1 is-centered has-background-light"> Mon panier </h1>
+    <div class="container  is-vcentered">
+        <h1 class="title is-1 is-centered "> Mon panier </h1>
 
-   {% if panier|length > 0 %}
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Articles</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Total</th>
-                    <th>
-                        
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for p in panier %}
-                <tr>
-                    <td> {{ p.produit.titre }}</td>
-                    <td>{{p.produit.prix}} €</td>
-                    <td>{{p.quantité}}</td>
-                    <td> {{p.produit.prix * p.quantité}} €</td>
-                    <td>
-                        <a href="{{path('panier_add', {id:p.produit.id})}}"> <i class="fas fa-plus"></i> </a> -
-                        <a href=" {{path('panier_remove', {id:p.produit.id})}} "> <i class="fas fa-trash"></i></a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td>Total</td>
-                    <td></td>
-                    <td></td>
-                    <td> {{total}} € </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td > <a class="button" href="#"> valider la commande</a></td>
-                    <td></td>
+        {% if panier|length > 0 %}
+        <div class="column">
+            <table class="table is-fullwidth table is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Articles</th>
+                        <th>Prix</th>
+                        <th>Quantité</th>
+                        <th>Total</th>
+                        <th>
 
-                </tr>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in panier %}
+                    <tr>
+                        <td> {{ p.produit.titre }}</td>
+                        <td>{{p.produit.prix}} €</td>
+                        <td>{{p.quantité}}</td>
+                        <td> {{p.produit.prix * p.quantité}} €</td>
+                        <td>
+                            <a href="{{path('panier_add', {id:p.produit.id})}}"> <i class="fas fa-plus"></i> </a> -
+                            <a href=" {{path('panier_remove', {id:p.produit.id})}} "> <i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td> {{total}} € </td>
+                        <td></td>
+                    </tr>
 
-            </tfoot>
-        </table>
+
+                </tfoot>
+            </table>
+        </div>
+        <div class="column is-10 has-text-right">
+
+            <a class="button is-link is-rounded is-outlined " href=" {{path('info_paiement')}} "> 
+                valider la commande
+            </a>
+        </div>
+        <div><a class="button is-rounded " href=" {{path('conseil_lecture')}} ">ajoutez d'autres livres </a></div>
+
+        {% else %}
+        {% if app.user %}
+        <p class="title is-3">
+            {{app.user.nom}} {{app.user.prenom}} votre panier est vide veuillez le remplir pourcommander
+        </p>
         <div><a class="button" href=" {{path('conseil_lecture')}} ">ajoutez d'autres livres </a></div>
-    
-   {% else %}
-         {% if app.user %}
-           <p class="title is-3">{{app.user.nom}} {{app.user.prenom}} votre  panier est vide veuillez le remplir pour commander</p>
-           <div><a class="button" href=" {{path('conseil_lecture')}} ">ajoutez d'autres livres </a></div>
-           
-         {% else %}
-           <p class="title is-3"> votre panier est vide veuillez le remplir pour commander </p>  
 
-           <div><a class="button" href=" {{path('conseil_lecture')}} ">ajoutez d'autres livres </a></div>
-          {% endif %}   
-   {% endif %}
-</div>
+        {% else %}
+        <p class="title is-3"> votre panier est vide veuillez le remplir pour commander </p>
+
+        <div><a class="button" href=" {{path('conseil_lecture')}} ">ajoutez d'autres livres </a></div>
+        {% endif %}
+        {% endif %}
+    </div>
 </section>
 {% endblock %}

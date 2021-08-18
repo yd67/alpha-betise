@@ -45,7 +45,6 @@ class ConseilLectureController extends AbstractController
                         'livres' => $livres,
                      ])
             ]);
-
         }
 
         return $this->render('conseil_lecture/index.html.twig', [

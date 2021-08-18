@@ -3,9 +3,56 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {% block body %}
-
         <div>
             {{ form_start(ajoutForm, {attr: {'novalidate': 'novalidate'}}) }}
+
+            <div class="file">
+                {{form_row(ajoutForm.img,{attr:{'class':'file'}})}}
+            </div>
+
+            <div class="columns">
+                    <div class="column is-half">
+                        {{form_row(ajoutForm.titre,{attr:{'class':'input'}})}}
+                    </div>
+                    <div class="column is-half">
+                        {{form_row(ajoutForm.auteur,{attr:{'class':'input'}})}}
+                    </div>
+            </div>
+
+            <div class="columns">
+                    <div class="column is-half">
+                        {{form_row(ajoutForm.editeur,{attr:{'class':'input'}})}}
+                    </div>
+                    <div class="column is-half">
+                        {{form_row(ajoutForm.code,{attr:{'class':'input'}})}}
+                    </div>
+            </div>
+
+            <div class="columns">
+                <div class="column is-one-third">
+                    {{form_row(ajoutForm.prix,{attr:{'class':'input'}})}}
+                </div>
+                <div class="column is-one-third">
+                    {{form_row(ajoutForm.category,{attr:{'class':'input'}})}}
+                </div>
+                <div class="column is-one-third">
+                    {{form_row(ajoutForm.stock,{attr:{'class':'input'}})}}
+                </div>  
+            </div>
+            
+            <div class="columns">
+                <div class="column is-half">
+                    {{form_row(ajoutForm.resume,{attr:{'class':'textarea'}})}}
+                </div>
+                <div class="column is-half">
+                    {{form_row(ajoutForm.avis_libraire,{attr:{'class':'textarea'}})}}
+                </div>
+            </div>
+           
+
+            <div class="column has-text-centered">
+                <button type="submit" class="button is-info is-outlined">Ajouter</button>
+            </div>
 
             {{ form_end(ajoutForm) }}
         </div>

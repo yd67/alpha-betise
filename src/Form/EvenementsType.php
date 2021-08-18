@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,14 +22,20 @@ class EvenementsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('img',FileType::class)
-            ->add('title',TextType::class)
+            ->add('img',FileType::class,[
+                'label'=>'image'
+            ])
+            ->add('title',TextType::class,[
+                'label'=> 'Nom de l\'evenement'
+            ])
             ->add('start',DateTimeType::class,[
                 'date_widget' => 'single_text',
+                'label'=> 'Debut de l\'evenement'
                 
             ])
             ->add('end',DateTimeType::class,[
                 'date_widget' => 'single_text',
+                'label'=> 'Fin de l\'evenement'
                 
             ])
             ->add('lieux',TextType::class,[
@@ -41,14 +48,11 @@ class EvenementsType extends AbstractType
                     'pas de reservation' => false,
                 ],
             ])
-            ->add('max_personne')
-            ->add('prix')
-            ->add('age_cible')
+            ->add('max_personne',IntegerType::class)
+            ->add('prix',IntegerType::class)
+            ->add('age_cible',TextType::class)
             ->add('description',TextareaType::class)
-            ->add('background_color',ColorType::class)
-            ->add('text_color',ColorType::class)
-
-            ->add('ajouter',SubmitType::class)
+    
         ;
     }
 

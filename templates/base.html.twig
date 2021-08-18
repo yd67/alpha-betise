@@ -1,141 +1,192 @@
-
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-            and uncomment the following Encore helpers to start using Symfony UX #}
-            <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" integrity="sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA==" crossorigin="anonymous" />
-            {# <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
-         #}
-         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
-         <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-         <link rel="stylesheet" href=" {{asset('css/main.css')}} ">
-            {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {# Run `composer require symfony/webpack-encore-bundle`
+    and uncomment the following Encore helpers to start using Symfony UX #}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.css"
+        integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css"
+        integrity="sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA=="
+        crossorigin="anonymous" />
+    {#
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css">
+    #}
 
-    </head>
-    <body >
-    
-        <header class="medium" >
-          <div class="container">  
-        <nav class="navbar " role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-              <a class="navbar-item" href="#">
-                <img src="{{asset('img/logo.svg')}} " width="112" height="28">
-              </a>
-          
-              <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-              </a>
-            </div>
-          
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-end">
-                
-              </div>         
-                 <div class="navbar-end">
-                    <div class="navbar-item">
-                        <a class="navbar-item" href=" {{path('home')}} "> <i class="far fa-home mr-1"></i>  Acceuil</a>
-                        <a class="navbar-item" href="{{path('evenements')}} "><i class="far fa-calendar-alt mr-1"></i> Rencontre</a>
-                        <a class="navbar-item" href=" {{path('conseil_lecture')}} "> <i class="far fa-book mr-1"></i> Conseil Lecture</a>
-                        <a class="navbar-item" href=" {{path('librairie')}} "> <i class="far fa-book-reader mr-1"></i>La Librairie </a>
-                        <a class="navbar-item" href=" {{path('contact')}} "><i class="far fa-address-book mr-1"></i> Contact</a>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <a class="navbar-item" href=" {{path('admin')}} "><i class="fas fa-user-cog mr-1"></i>Admin</a>
-                        {% endif %}
-                        {% if app.user %}
-                        <div class="navbar-item has-dropdown is-hoverable ">
-                            <a class="navbar is-align-items-center" href="" >
-                                <span> {{ app.user.nom|upper }} </span>
-                                <figure class="image is-32x32" style="margin-right: 0.5em"><img class="is-rounded" src=" {{asset('img/profil-user/' ~ app.user.img)}} "></figure>
-                               
-                             </a> 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
 
-                             <div class="navbar-dropdown is-right">
-                                 <a class="navbar-item" href=" {{path('profil')}} " >
-                                    <span class="icon is-small">
-                                        <i class="fa fa-user-o"></i> 
-                                    </span> Profil
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css" />
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href=" {{asset('css/main.css')}} ">
+    {% block stylesheets %}
+    {#{{ encore_entry_link_tags('app') }}#}
+    {% endblock %}
+
+</head>
+
+<body>
+
+    <header class="medium">
+        <div class="container">
+            <nav class="navbar nav-perso" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href=" {{path('home')}} ">
+                        <img src="{{asset('img/logo.svg')}} " width="112" height="28">
+                    </a>
+
+                    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                        data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-end">
+
+                    </div>
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <a class="navbar-item" href=" {{path('home')}} "> <i class="far fa-home mr-1"></i>
+                                Acceuil</a>
+                            <a class="navbar-item" href="{{path('evenements')}} "><i
+                                    class="far fa-calendar-alt mr-1"></i> Rencontre</a>
+                            <a class="navbar-item" href=" {{path('conseil_lecture')}} "> <i
+                                    class="far fa-book mr-1"></i> Conseil Lecture</a>
+                            <a class="navbar-item" href=" {{path('librairie')}} "> <i
+                                    class="far fa-book-reader mr-1"></i>La Librairie </a>
+                            <a class="navbar-item" href=" {{path('contact')}} "><i class="far fa-address-book mr-1"></i>
+                                Contact</a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <a class="navbar-item" href=" {{path('admin')}} "><i
+                                    class="fas fa-user-cog mr-1"></i>Admin</a>
+                            {% endif %}
+                            {% if app.user %}
+                            <div class="navbar-item has-dropdown is-hoverable ">
+                                <a class=" nav-perso navbar is-align-items-center" href="{{path('profil')}}">
+                                    <span> {{ app.user.nom|upper }} </span>
+                                    <figure class="image is-32x32" style="margin-right: 0.5em">
+                                        <img class="is-rounded" src=" {{asset('img/profil-user/' ~ app.user.img)}} ">
+                                    </figure>
                                 </a>
+
+                                <div class="navbar-dropdown is-right">
+                                    <a class="navbar-item" href=" {{path('profil')}} ">
+                                        <span class="icon is-small">
+                                            <i class="fa fa-user-o"></i>
+                                        </span> Profil
+                                    </a>
                                     <hr class="navbar-divider">
                                     <a class="navbar-item" href="{{path('app_logout')}}">
                                         <span class="icon is-small">
                                             <i class="fas fa-power-off has-text-danger-dark "></i>
-                                        </span> <span class="ml-2">Déconnexion</span> 
+                                        </span> <span class="ml-2">Déconnexion</span>
                                     </a>
                                 </div>
-                         </div>
-                        {% else %}
-                        <a class="button  " href="{{path('app_login')}} "> <i class="fa fa-sign-in-alt mr-1 "></i> Connexion </a> 
-            
-                        {% endif %}
+                            </div>
+                            {% else %}
+                            <a class="button is-link is-rounded is-outlined " href="{{path('app_login')}} "> <i
+                                    class="fa fa-sign-in-alt mr-1 "></i> Connexion </a>
+
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
-            </div>
-          </nav>
-            {% if app.request.get('_route') != 'evenements' %}  {# si on est pas sur la route evenements#}
-            <div class="column has-text-right mr-4 mb-4"> 
-                {% if  app.session.get('panier')|length  > 0 %}  
-                     <span class="panier-contenue has-text-centered  ">{{ app.session.get('panier')|length}} </span>
+            </nav>
+            {% if app.request.get('_route') != 'evenements' %} {# si on est pas sur la route evenements#}
+            <div class="column has-text-right mr-4 mb-4">
+                {% if app.session.get('panier')|length > 0 %}
+                <span class="panier-contenue has-text-centered  ">{{ app.session.get('panier')|length}} </span>
                 {% endif %}
-                
+
                 <a href=" {{path('panier')}} " style="color: #00000098;"> <i class="far fa-shopping-bag fa-3x"></i></a>
                 <P>Panier</P>
             </div>
-            {% endif %} 
-        </div>   
-    </header>
-    
-        {% if app.request.get('_route') == 'evenements' %}
-            <div class="column has-text-right mr-2 mb-4  bg-evenement-page"> 
-                {% if  app.session.get('panier')|length > 0 %}
-                <span class="panier-contenue has-text-centered "> {{ app.session.get('panier')|length}} </span> 
-                {% endif %}
+            {% endif %}
+        </div>
 
-                <a href=" {{path('panier')}} " style="color: rgba(228, 213, 213, 0.938);"> <i class="far fa-shopping-bag fa-3x"></i></a>
-                <p>Panier</p>
-            </div>
+
+        {% for message in app.flashes('sucess') %}
+        <div class="alert alert-success " role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+    </header>
+
+    {% if app.request.get('_route') == 'evenements' %}
+    <div class="column has-text-right mr-2 mb-4  bg-evenement-page">
+        {% if app.session.get('panier')|length > 0 %}
+        <span class="panier-contenue has-text-centered "> {{ app.session.get('panier')|length}} </span>
         {% endif %}
 
-     {% block body %}
-        
-        {% endblock %}
-           <footer class="footer  has-background-black">
-               <div class="container">
-                    <h3>footer </h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium alias suscipit quae, porro magnam dignissimos eveniet similique? Eos, odio est. Sit illo error aperiam culpa sed quas. Commodi, quis obcaecati.
-                        Debitisodio dignissimos alias eveniet nemo voluptates tenetur dolor delectus optio velit dolorum recusandae facilis, dolore corrupti maiores minus! Odio rem magnam non.
-                        Cupiditate necessitatibus qui assumenda excepturi, magni dolor error quam placeat fugiat neque reprehenderit, harum ipsum aperiam doloremque officia nam maieniet tenetur molestias ex sed enim soluta.
-                    </p>
-               </div>
-             
-          </footer>
+        <a href=" {{path('panier')}} " style="color: rgba(228, 213, 213, 0.938);"> <i
+                class="far fa-shopping-bag fa-3x"></i></a>
+        <p>Panier</p>
+    </div>
+    {% endif %}
+
+    {% block body %}
+
+    {% endblock %}
+    <footer class="footer  has-background-black has-text-white">
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column has-text-centered">
+                        <a href=" {{path('info_paiement')}} "> <span class="footer-text">politique de paiement </span>
+                        </a> <br>
+                        <a href=" {{path('mention_legal')}} "><span class="footer-text">details du site </span></a> <br>
+                        <a href=" {{path('contact')}} "><span class="footer-text"> nous contacter</span></a> <br>
+                        <a href=" {{path('librairie')}} "> <span class="footer-text">a propos</span></a>
+                    </div>
+                    <div class="column has-text-centered">
+                        <div class="social-media mb-5">
+                            <a href="#" class="button is-link is-outlined "><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="button is-danger is-outlined "><i class="fab fa-instagram"></i></i></a>
+                            <a href="#" class="button is-link is-outlined "><i class="fab fa-twitter"></i></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div>
+                    <p class="has-text-centered"> site realise par <a href="https://www.linkedin.com/in/yvens-darius"
+                            target="_blank">Darius Yvens </a> © Copyright tout droit reservé 2021 </p>
+                </div>
+            </div>
+        </section>
+    </footer>
 
 
-        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js" integrity="sha256-rPPF6R+AH/Gilj2aC00ZAuB2EKmnEjXlEWx5MkAp7bw=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.5.1/main.min.js"
+        integrity="sha256-rPPF6R+AH/Gilj2aC00ZAuB2EKmnEjXlEWx5MkAp7bw=" crossorigin="anonymous"></script>
 
-        {# <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
-	 #}
-     
-         <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
-         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-         {# <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script> #}
-        
-         <script src=" {{asset('js/main.js')}} ">  </script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    {#
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous"></script> #}
 
-         {# ne pas oublier le script avec la cle API pour google map #}
-        
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </body>
+    {# script map leaflet #}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <script src=" {{asset('js/main.js')}} ">  </script>
+
+    {% block javascripts %}
+    {#{{ encore_entry_script_tags('app') }}#}
+    {% endblock %}
+</body>
+
 </html>

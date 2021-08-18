@@ -8,6 +8,7 @@ use App\Form\LivresType;
 use App\Form\AjoutCategoryType;
 use App\Repository\UserRepository;
 use App\Repository\LivresRepository;
+use App\Repository\VisiteRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,31 +20,39 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $UserRepository,LivresRepository $livresRepository ,CategoryRepository $categoryRepository): Response
+    public function index(UserRepository $UserRepository,VisiteRepository $visiteRepo ,LivresRepository $livresRepository ,CategoryRepository $categoryRepository): Response
     {
-        $users = $UserRepository->findAll();
+
+        $users = $UserRepository->findNewUser();
         $category =$categoryRepository->findAll();
         $livres = $livresRepository->findAll();
         
-
-       //  $dateNaissance = $users->getAge();
-        // $dateActuell = new \DateTime ;
-
-       // $age = \date_diff($dateNaissance,$dateActuell);
-
-       // var_dump($age); die;
+        $visite = $visiteRepo->findAll();
 
         return $this->render('admin/admin.html.twig', [
             'users' => $users,
             'categories' => $category,
             'livres' =>$livres ,
+            'visite' => $visite
+        ]);
+    }
+     /**
+     * @Route("/admin/user", name="user_list")
+     */
+    public function userList(UserRepository $UserRepository)
+    {
+        $users = $UserRepository->findAll();
+
+        return$this->render('admin/userList.html.twig',[
+            'users' => $users,
         ]);
     }
 
     /**
      * @Route("/admin/ajout/livres", name="ajout_livres")
      */
-    public function ajouterLivres(Request $request){
+    public function ajouterLivres(Request $request)
+    {
         $livres = new Livres ();
         $form = $this->createForm(LivresType::class, $livres);
         $form->handleRequest($request);
@@ -72,7 +81,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/ajout/category", name="ajout_category")
      */
-    public function ajoutCategory(Request $request){
+    public function ajoutCategory(Request $request)
+    {
 
         $category = new Category();
         $formCategory = $this->createForm(AjoutCategoryType::class, $category);
@@ -95,7 +105,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/category/delete-{id}", name="delete_category")
      */
-    public function deleteCategory(CategoryRepository $categoryRepository, $id){
+    public function deleteCategory(CategoryRepository $categoryRepository, $id)
+    {
 
         $category = $categoryRepository->find($id);
 
@@ -113,7 +124,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin/livre/delete-{id}", name="delete_livre")
      */
-    public function deletelivre(LivresRepository $LivresRepository, $id){
+    public function deletelivre(LivresRepository $LivresRepository, $id)
+    {
 
         $livres = $LivresRepository->find($id);
 

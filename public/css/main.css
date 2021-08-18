@@ -1,16 +1,21 @@
 body{
     font-family: cursive;
+    background-color: rgba(239, 247, 252, 0.993);
 }
 
+header{
+
+    background-color: rgba(239, 247, 252, 0.993);
+}
+.nav-perso{
+    
+    background-color: rgba(239, 247, 252, 0.993);
+}
 .calendrier{
     
     text-align: center;
     margin: 0 auto;
     
-}
-header{
-
-    background-color: white;
 }
 .panier-contenue{
     background-color: #e2001a;
@@ -24,16 +29,16 @@ header{
     max-height: 100px;
 
 }
-#map{
-    height: 400px;
-    /* The height is 400 pixels */
-    
-    /* The width is the width of the web page */
-  
-}
-.map{
-    width: 100%;
-    border-left: 1px solid black;
-
+#mapid{
+    height: 400px;  
 }
 
+.titre-co{
+    color:hsla(240, 65%, 66%, 0.953);
+}
+.footer-text{
+    color: white;
+}
+.footer-text:hover{
+    color: #5e5ed8;
+}

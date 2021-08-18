@@ -1,0 +1,41 @@
+{% extends "admin/baseAdmin.html.twig" %}
+
+{% block  body %}
+    
+<h3 class="title has-text-centered">les utilisateurs</h3>
+<div class="columns">
+    <div class="column  is-three-quarters">
+        <table class="table text-center is-fullwidth ">
+           <thead>
+            <tr>
+                <th>N°</th>
+                <th>profil</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>email</th>
+                <th>roles</th>
+                <th>Newletter</th>
+
+            </tr>
+        </thead> 
+        <tbody>
+            {% for user in users %} 
+            
+            <tr>
+                <td> {{loop.index}} </td>
+                <td> <img src=" {{asset('img/profil-user/' ~ user.img )}} " alt="photo profil de l'utilisateur" width="60px" height="60px" > </td>
+                <td> {{user.nom}} </td>
+                <td> {{user.prenom}} </td>
+                <td> {{user.email}} </td>
+                <td> {{user.roles|join(' + ')|lower }} </td>
+                <td> {{user.newsletter}} </td>
+        
+              </tr> 
+            {% endfor %}
+        </tbody>       
+        </table>
+    </div>
+
+</div>
+
+{% endblock  %}

@@ -1,0 +1,52 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+  <div class="colunm has-text-centered mb-5 ">
+    <h3 class="title"> Modifier Mon Profil </h3>
+  </div>
+  <div class="columns is-centered">
+    <div class="column is-4 ">
+      {{ form_start(userForm)}}
+
+      <div class="columns">
+        <div class="column is-half">
+          {{form_row(userForm.nom ,{'attr':{'class':'input' }}) }}
+        </div>
+
+        <div class="column is-half">
+          {{form_row(userForm.prenom ,{'attr':{'class':'input' }}) }}
+        </div>
+      </div>
+
+      <div class="control">
+        {{form_row(userForm.email ,{'attr':{'class':'input' }}) }}
+      </div>
+
+      <div class="columns">
+        <div class="column is-half">
+          {{form_row(userForm.age) }}
+        </div>
+
+        <div class="column is-half">
+          {{form_row(userForm.newsletter) }}
+        </div>
+      </div>
+      <div class="column is-half">
+        {{form_row(userForm.img) }}
+      </div>
+
+      <div class="has-text-centered">
+        <button class="button is-link is-outlined " type="submit">Modifier</button>
+      </div>
+
+      {{ form_end(userForm) }}
+
+      <div class="column"><a href=" {{path('profil')}} "> revenir sur mon profil</a></div>
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Rollerworks\Component\PasswordStrength\Validator\Constraints\PasswordStrength;
 
 class RegistrationFormType extends AbstractType
 {
@@ -49,32 +50,38 @@ class RegistrationFormType extends AbstractType
                 'label' => 'mot de passe',
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Veuillez entrer un mot de passe ',
                     ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'votre mot de passe doit comporter au minimun {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
+                   
+                    new PasswordStrength([
+                        'minLength' => 8,
+                        'tooShortMessage' => 'Le mot de passe doit contenir au moins 8 caractères',
+                        'minStrength' => 4,
+                        'message' => 'Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial'
+                    ])
                 ],
             ])
-            ->add('age',BirthdayType::class)
+            ->add('age',BirthdayType::class,[
+                'label' => 'date de naissance'
+            ])
             ->add('newsletter',ChoiceType::class,[
                 'choices'  => [
                     'oui' => 'oui',
                     'non' => 'non' ,
-                 ]
+                ],
+                'label' => 's\'incrire a la newsletter ?'
             ])
             ->add('img',FileType::class,[
                 'required'=> false,
+                'label' => 'photo de profil',
             ])
 
             ->add('agreeTerms', CheckboxType::class, [
+                'label' => 'accepte les conditions d\'utilisation ',
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
-                        'message' => 'You should agree to our terms.',
+                        'message' => 'vous devez accepter les conditions general d\'utilisation.',
                     ]),
                 ],
             ])

@@ -42,12 +42,12 @@ window.onload = () => {
     function modalOpen(){
         modalImg.classList.add('is-active');
     }
-
+    
     function modalClose(){
     modalImg.classList.remove('is-active');
     }
 
-// le onclick se trouve dans le html
+// Rapel! le onclick se trouve dans le html
 
 
 

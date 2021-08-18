@@ -59,15 +59,6 @@ class EvenementsController extends AbstractController
             ;
 
             $evenementsAvenir = $query->getResult() ;
-
-            // recuperer un user conecter et son email
-            // $user = $this->getUser();
-            // if($user != null){
-            //      $userEmail = $user->getEmail() ;
-            // }else{
-            //     $userEmail ="email inconu";
-            // }
-            
         
         return $this->render('evenements/index.html.twig', [
             'evenements' => $evenementsAvenir,
@@ -108,6 +99,30 @@ class EvenementsController extends AbstractController
         ]);
         
     }
+     /**
+     * @Route("/evenements/list", name="evenements_list")
+     */
+    public function listEvenement(EvenementsRepository $evenementsRepository){
+        $listEvents = $evenementsRepository->findOrderAll('DESC') ;
+        
+        return $this->render('admin/listEvenement.html.twig',[
+            'listEvents' => $listEvents ,
+        ]);
+    } 
+
+     /**
+     * @Route("/evenements/inscrit-{id}", name="evenements_inscrit")
+     */
+    public function evenementInscrit($id,EventsParticipantRepository $eventsParticipant){
+
+       $events = $eventsParticipant->findByE($id) ;
+       
+
+       return $this->render('admin/inscritEvenement.html.twig',[
+        'events' => $events ,
+    ]);
+    } 
+
 
      /**
      * @Route("/evenements/passer", name="evenements_passer")
@@ -145,6 +160,7 @@ class EvenementsController extends AbstractController
         $userP = $eventsParticipantRepository->findByPartication($eventId ,$userId);
 
         if($userP == null ){
+            
                 $user = $this->getUser();
                 $participant->setUser($user);
                 $participant->setEvenement($evenements);

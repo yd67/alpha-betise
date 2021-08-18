@@ -1,4 +1,3 @@
-
 .checked{
     color: orange;
 }
@@ -6,12 +5,10 @@
    
 }
 .active{
-    border-bottom: 4px solid  salmon;
-    
+    border-bottom: 4px solid  salmon;   
 }
 .articles{
-   display: grid;
-   
+   display: grid; 
 }
 .livre-img{
     max-height: 70px;

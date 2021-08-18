@@ -23,6 +23,7 @@ class LivresType extends AbstractType
         $builder
             ->add('img',FileType::class,[ 
                 'required' => true,
+                'label'=> 'photo du livre'
             ])
             ->add('titre',TextType::class,[
 
@@ -34,8 +35,8 @@ class LivresType extends AbstractType
 
             ])
             ->add('code',TextType::class,[
-
-                ])
+                'label'=> 'Code EAN / ISBN'
+            ])
             ->add('prix',MoneyType::class,[
 
             ])
@@ -46,6 +47,7 @@ class LivresType extends AbstractType
                 ]
             ])
             ->add('resume',TextareaType::class,[
+                'label' => 'resumer du livre'
 
             ])
             ->add('stock',IntegerType::class,[
@@ -56,10 +58,9 @@ class LivresType extends AbstractType
                 'choice_label'=> 'nom_category',
                 'attr' => [
                     'class'=> 'select'
-                ]
-
+                ],
+                'label'=>'categorie'
             ])
-            ->add('ajouter',SubmitType::class)
         
         ;
     }

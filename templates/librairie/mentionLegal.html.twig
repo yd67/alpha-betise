@@ -1,0 +1,79 @@
+{% extends "base.html.twig" %}
+
+{% block title %} Alpha-betise Details du site {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="column has-text-centered">
+        <h1 class="title ">
+            Details du site
+        </h1>
+    </div>
+
+    <div class="column">
+        <p class="content">
+            <span class="has-text-weight-semibold">A. Accueil</span> <br>
+            La page d’accueil présentera rapidement la librairie, mettra en avant les événements à venir, et une
+            sélection de quelques
+            ouvrages. Un bouton du type « voir plus de livres » emmènera l’utilisateur sur la page « Conseil de lectures
+            » .
+            Pour la sélection des livres, on trouvera pour chaque ouvrage : le titre et l’auteur, un résumé et le prix,
+            ainsi que le lien vers
+            la fiche détaillée.
+
+        </p>
+        <p class="content">
+            <span class="has-text-weight-semibold">B. Rencontres</span> <br>
+            On trouvera sur la page Rencontres un agenda du mois explicitant les événements prévus.
+            Il sera possible de voir les événements passés (sur une page séparée).
+            La page « Rencontres » montrera les 2 prochaines rencontres à venir : visuel titre de
+            l’événement, date (et lieu éventuel), présentation de l’événement, quel public (âge conseillé), si la
+            réservation est
+            nécessaire, (le maximum de personnes pouvant s’inscrire, si besoin) ainsi que le prix si c’est une rencontre
+            payante
+            (préciser si c’est gratuit).
+            sur la page rencontre on pourra s'incrire a un evenement (l'utilisateur dot etre connecté).
+
+        </p>
+
+        <p class="content">
+            <span class="has-text-weight-semibold">C. Conseils de lectures</span> <br>
+            La page « conseil de lectures » consiste en une sélection de livres, classés par ordre chronologique
+            décroissant (du plus
+            récent au plus ancien). On trouvera une liste avec pagination.
+            Pour chaque livre, on trouvera : un visuel, le titre du livre, l’auteur, l’éditeur, le prix, et un résumé du
+            livre (en 1 ou 2 phrases).
+            Il vous est demandé de proposer un système de classement par tranche d’âge cible.
+
+        </p>
+
+        <p class="content">
+            <span class="has-text-weight-semibold"> F. Page produit</span> : <br>
+            La page détaillera le livre. Seront présents ,le visuel, cliquable, qui agrandira l’image du visuel
+            , Le titre , La note des lecteurs ,Le / la / les auteur(s) / trice(s)
+            ,La maison d’édition ,La disponibilité de l’article (en stock / en attente / épuisé / indisponible…)
+            ,Le prix,Un bouton d’ajout au panier ,Une présentation de l’ouvrage (résumé / 4e de couverture)
+            ,Le commentaire du libraire ,Les commentaires des lecteurs
+            ,Les informations du livre : Code EAN / Code ISBN / éditeur /
+        </p>
+
+        <p class="content">
+            <span class="has-text-weight-semibold"> D. La librairie</span> <br>
+            C’est une page « à propos », qui donne des informations sur la librairie, ainsi que des informations
+            pratiques : adresse,
+            numéro de téléphone, plan, horaires d’ouvertures, lien vers la page contact
+        </p>
+
+        <p class="content">
+            <span class="has-text-weight-semibold">E. Contact</span> <br>
+            La page contact comprendra un formulaire de contact, la reprise des informations telles que numéro de
+            téléphone,
+            adresse, visuel de la librairie.
+            Enfin, ce n’est pas une rubrique mais : pour chaque ouvrage présenté (quelle que soit la page), au clic sur
+            son titre ou sur
+            son visuel, on arrivera sur une page produit :
+
+        </p>
+    </div>
+</div>
+{% endblock %}

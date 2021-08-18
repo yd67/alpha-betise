@@ -14,8 +14,10 @@ class AjoutCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom_category',TextType::class)
-            ->add('ajouter',SubmitType::class)
+            ->add('nom_category',TextType::class,[
+                'label' => 'nom de la  categorie'
+            ])
+            
         ;
     }
 

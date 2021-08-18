@@ -1,0 +1,159 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>alpha-betise-Erreur</title>
+        
+    {% block stylesheets %}
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" integrity="sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA==" crossorigin="anonymous" />
+
+     <link rel="stylesheet" href=" {{asset('css/error404.css')}} ">
+     {% endblock %}
+</head>
+<body>
+
+  {% block body %}
+  <header class="medium" >
+    <div class="container">  
+  <nav class="navbar nav-perso" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href=" {{path('home')}} ">
+          <img src="{{asset('img/logo.svg')}} " width="112" height="28">
+        </a>
+    
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-end">
+          
+        </div>         
+           <div class="navbar-end">
+              <div class="navbar-item">
+                  <a class="navbar-item" href=" {{path('home')}} "> <i class="far fa-home mr-1"></i>  Acceuil</a>
+                  <a class="navbar-item" href="{{path('evenements')}} "><i class="far fa-calendar-alt mr-1"></i> Rencontre</a>
+                  <a class="navbar-item" href=" {{path('conseil_lecture')}} "> <i class="far fa-book mr-1"></i> Conseil Lecture</a>
+                  <a class="navbar-item" href=" {{path('librairie')}} "> <i class="far fa-book-reader mr-1"></i>La Librairie </a>
+                  <a class="navbar-item" href=" {{path('contact')}} "><i class="far fa-address-book mr-1"></i> Contact</a>
+                  {% if is_granted('ROLE_ADMIN') %}
+                      <a class="navbar-item" href=" {{path('admin')}} "><i class="fas fa-user-cog mr-1"></i>Admin</a>
+                  {% endif %}
+                  {% if app.user %}
+                  <div class="navbar-item has-dropdown is-hoverable ">
+                      <a class=" nav-perso navbar is-align-items-center" href="" >
+                          <span> {{ app.user.nom|upper }} </span>
+                          <figure class="image is-32x32" style="margin-right: 0.5em"><img class="is-rounded" src=" {{asset('img/profil-user/' ~ app.user.img)}} "></figure>
+                         
+                       </a> 
+
+                       <div class="navbar-dropdown is-right">
+                           <a class="navbar-item" href=" {{path('profil')}} " >
+                              <span class="icon is-small">
+                                  <i class="fa fa-user-o"></i> 
+                              </span> Profil
+                          </a>
+                              <hr class="navbar-divider">
+                              <a class="navbar-item" href="{{path('app_logout')}}">
+                                  <span class="icon is-small">
+                                      <i class="fas fa-power-off has-text-danger-dark "></i>
+                                  </span> <span class="ml-2">Déconnexion</span> 
+                              </a>
+                          </div>
+                   </div>
+                  {% else %}
+                  <a class="button is-link is-rounded is-outlined " href="{{path('app_login')}} "> <i class="fa fa-sign-in-alt mr-1 "></i> Connexion </a> 
+      
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+    </nav>
+      {% if app.request.get('_route') != 'evenements' %}  {# si on est pas sur la route evenements#}
+      <div class="column has-text-right mr-4 mb-4"> 
+          {% if  app.session.get('panier')|length  > 0 %}  
+               <span class="panier-contenue has-text-centered  ">{{ app.session.get('panier')|length}} </span>
+          {% endif %}
+          
+          <a href=" {{path('panier')}} " style="color: #00000098;"> <i class="far fa-shopping-bag fa-3x"></i></a>
+          <P>Panier</P>
+      </div>
+      {% endif %} 
+  </div>   
+
+
+   {% for message in app.flashes('sucess') %}
+      <div class="alert alert-success " role="alert">
+          {{message}}
+      </div>
+      {% endfor %}
+</header>
+
+{#****************************************************************************************************** #}
+
+<section class="section">
+   <div class="container">
+
+      <div class="columns  is-centered">
+          <div class="column is-4 ">
+              <img src="{{asset('img/logo.svg') }}" alt="">
+          </div>
+      </div>
+
+      <div class="columns is-centered">
+          <div class="column message-erreur ">
+              erreur <span class="code" style="color: blue ;">4</span> <span class="code" style="color: orange;">0</span> <span class="code" style="color: red ;">4</span>
+         
+              la page de demande n'existe pas ou plus 
+
+          </div>
+      </div>
+
+    </div>
+</section>
+
+{#****************************************************************************************************** #}
+<footer class="footer  has-background-black has-text-white">
+    <section class="section">
+    <div class="container">
+         <div class="columns">
+             <div class="column has-text-centered">
+                    <a href=" {{path('info_paiement')}} "> <span class="footer-text">politique de paiement </span> </a> <br>
+                   <a href=" {{path('mention_legal')}} "><span class="footer-text">details du site </span></a>   <br>
+                   <a  href=" {{path('contact')}} "><span class="footer-text"> nous contacter</span></a>  <br>
+                    <a href=" {{path('librairie')}} "> <span class="footer-text">a propos</span></a> 
+             </div>
+             <div class="column has-text-centered">
+                         <div class="social-media mb-5">
+                             <a href="#" class="button is-link is-outlined "><i class="fab fa-facebook-f"></i></a>
+                             <a href="#" class="button is-danger is-outlined "><i  class="fab fa-instagram"></i></i></a>
+                             <a href="#" class="button is-link is-outlined "><i class="fab fa-twitter"></i></i></a>
+                         </div>
+             </div>
+         </div>
+         <hr>
+         <div> 
+             <p class="has-text-centered"> site realise par <a href="https://www.linkedin.com/in/yvens-darius" target="_blank">Darius Yvens </a> © Copyright tout droit reservé 2021 </p>
+         </div>  
+    </div>
+  </section>
+</footer>
+
+   {% endblock %}
+
+  
+   {% block javascripts %}
+   <script src=" {{asset('js/error404.js')}} ">  </script>
+
+{% endblock %}
+
+</body>
+</html>
+
+ 

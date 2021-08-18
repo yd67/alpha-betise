@@ -9,14 +9,13 @@
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css" integrity="sha512-byErQdWdTqREz6DLAA9pCnLbdoGGhXfU6gm1c8bkf7F51JVmUBlayGe2A31VpXWQP+eiJ3ilTAZHCR3vmMyybA==" crossorigin="anonymous" />
           
        
-         <link rel="stylesheet" href=" {{asset('css/admin.css')}} ">
+           <link rel="stylesheet" href=" {{asset('css/admin.css')}} ">
             {% block stylesheets %}
     
         {% endblock %}
 
     </head>
-    <body>
-      
+    <body> 
         <header>
             <nav class="navbar " role="navigation" aria-label="main navigation">
                 <div class="navbar-brand">
@@ -82,7 +81,7 @@
                     General
                 </p>
                 <ul class="menu-list">
-                    <li><a class="is-active" href="{{path('admin')}}">Dashboard</a></li>
+                    <li><a class="is-active" href="{{path('admin')}}">Acceuil Admin</a></li>
                    
                 </ul>
                 <p class="menu-label">
@@ -92,8 +91,8 @@
                     <li>
                         <a>utilisateur</a>
                         <ul>
-                            <li><a href="">ajouter un utilisateur</a></li>
-                            <li><a href="">suprimer un utilisateur</a></li>
+                            <li><a href=" {{path('user_list')}} ">Liste de utilisateur</a></li>
+                        
                         </ul>
                        
                     </li>
@@ -110,6 +109,11 @@
                         <ul>
                             <li><a href="{{path('evenements_creation')}}">ajouter un Evenements</a></li>
                         </ul>
+                        <ul>
+                            <li>
+                                <a href=" {{path('evenements_list')}} ">les evenements </a>
+                            </li>
+                        </ul>
                     
                     </li>
                    
@@ -123,7 +127,7 @@
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title">
-                            Hello, {{app.user.nom}}.
+                            Bonjour, {{app.user.nom}} {{app.user.prenom}}.
                         </h1>
                         <h2 class="subtitle">
                             Bienvenue sur la page admin ! 
@@ -137,10 +141,6 @@
         </div>
     </div>
      </div>  
-
-    
-           
-
 
        <script src="  {{asset('js/main.js')}} "></script>
         {% block javascripts %}

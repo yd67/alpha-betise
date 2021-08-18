@@ -1,11 +1,52 @@
 {% extends "admin/baseAdmin.html.twig" %}
 
-{% block title %}Hello HomeController!{% endblock %}
-
 {% block body %}
 
         <div>
             {{ form_start(createEvenementsForm) }}
+            <div class="column ">
+                {{form_row(createEvenementsForm.img ,{'attr':{'class':'file' , 'label':'image'}}) }}
+            </div>
+            
+            <div class="columns">
+                <div class="column is-5 ">
+                    {{form_row(createEvenementsForm.title ,{'attr':{'class':'input' }}) }}
+                  </div>
+                  <div class="column is-3 ">
+                    {{form_row(createEvenementsForm.lieux ,{'attr':{'class':'input' }}) }}
+                  </div>    
+                <div class="column is-3 ">
+                    {{form_row(createEvenementsForm.age_cible ,{'attr':{'class':'input' }}) }}
+                </div>        
+            </div>
+            
+            <div class="columns">
+                <div class="column is-half ">
+                    {{form_row(createEvenementsForm.start ,{'attr':{'class':'input' }}) }}
+                  </div>
+
+                  <div class="column is-half ">
+                    {{form_row(createEvenementsForm.end ,{'attr':{'class':'input' }}) }}
+                  </div>
+            </div>
+                
+            <div class="columns">
+                <div class="column is-3 ">
+                    {{form_row(createEvenementsForm.reservation ,{'attr':{'class':'input' }}) }}
+                  </div> 
+                  <div class="column is-3 ">
+                    {{form_row(createEvenementsForm.prix ,{'attr':{'class':'input' }}) }}
+                  </div> 
+                  <div class="column is-3 ">
+                    {{form_row(createEvenementsForm.max_personne ,{'attr':{'class':'input' }}) }}
+                  </div> 
+
+            </div>
+            <div>
+                {{form_row(createEvenementsForm.description ,{'attr':{'class':'textarea' }}) }}
+             </div> 
+
+            <div class=" has-text-centered mt-4"> <button type="submit" class="button is-info is-outlined"> valider</button> </div>
 
             {{ form_end(createEvenementsForm) }}
         </div>

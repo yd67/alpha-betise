@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConseilLectureController!{% endblock %}
+{% block title %}Alpha Betise ConseilLecture{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('css/lecture.css') }} ">
@@ -14,15 +14,12 @@
         <div class="column filter   is-centered" id=" {{categorie.id}} "> <a class="afilter " href=" {{path('livre_By_Cat',{'id':categorie.id} )}} "> {{categorie.nomCategory}} </a> </div>
     {% endfor %}   
      </div>  
-     ;<section class="section">
+     <section class="section">
        <div id="contenueFiltre">
        {% include "conseil_lecture/contenue.html.twig" %}
      </div>
      </section>
      
-     
-     
-
  </div>
 
 {% block javascripts %}

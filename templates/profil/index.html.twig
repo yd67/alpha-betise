@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Hello ProfilController!{% endblock %}
+{% block title %}Alpha betise Mon Profil{% endblock %}
 
 
 {% block body %}
@@ -15,11 +15,11 @@
 <!-- ***********************  fin message flash *************************** -->
 <div class="container">
     <section class="section"> 
-        <h3 class="title is-4"> Mon  Compte </h3>
+        <h3 class="title is-4 titre-co"> Mon  Compte </h3>
         <div class="columns box">
             <div class="column is-centered is-3 ">
                 <div>
-                    <figure>
+                    <figure class="image 150x128px">
                         <img class="is-rounded" src="{{ asset('img/profil-user/' ~ app.user.img) }}" alt="">
                     </figure>
                 </div>
@@ -29,7 +29,7 @@
                     <div>Prenom:{{app.user.prenom|upper}}</div>
                     <div>Age: {{ageUser}} ans </div>
                     <div> Compte creer le  {{app.user.dateCreation| date('d-m-y')}}</div>
-                     <a href="">Modifier mes informations</a>
+                     <a href=" {{path('profil_update')}} ">Modifier mes informations</a>
             </div>
         </div>
        
@@ -38,7 +38,7 @@
     </section>
 
     <section class="section">
-        <h3 class="title is-3"> Mes Evenements </h3>
+        <h3 class="title is-3 titre-co"> Mes Evenements </h3>
         <div class="box ">
             {% if eventsP is not empty %}
                  {% for p in eventsP %}
@@ -55,7 +55,7 @@
     </section>
 
     <section class="section">
-        <h3 class="title is-5"> Mes Commandes </h3>
+        <h3 class="title is-5 titre-co"> Mes Commandes </h3>
         <div>
             vous n'avez pas de commande
         </div>

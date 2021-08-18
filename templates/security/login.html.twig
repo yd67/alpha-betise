@@ -20,9 +20,6 @@
   
 {% block body %}
 
-{% if error %}
-<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
 
 {% if app.user %}
 <div class="mb-3">
@@ -36,7 +33,7 @@
   <div class="hero-body">
     <div class="container has-text-centered">
       <div class="column is-4 is-offset-4">
-        <h3 class="title has-text-black">Connexion</h3>
+        <h3 class="title titre-co">Connexion</h3>
         <hr class="login-hr">
         <div class="box">
 
@@ -69,7 +66,6 @@
                 <button class=" button is-block is-info is-large is-fullwidth">
                   connexion
                 </button>
-
               </p>
             </div>
             {#
@@ -88,11 +84,13 @@
 
         </div>
         <p class="">
-          <a href="../">mot de passe oublié</a>  <span>|</span>
            <a href=" {{path('app_register')}} ">inscription</a>  <span>|</span>  
           <a href=" {{path('home')}} ">retour a l'acceuil</a>
         </p>
       </div>
+      {% if error %}
+      <div class="notification is-danger">{# {{ error.messageKey|trans(error.messageData, 'security') }}#} email ou mots de passe incorect </div>
+      {% endif %}
     </div>
   </div>
 </section>

@@ -1,0 +1,54 @@
+{% extends "admin/baseAdmin.html.twig" %}
+
+{% block body %}
+
+<div>
+    {% if events != null %}
+     <div class="column">
+         <h2 class="title is-4 has-text-centered"> Participant pour la rencontre {{events[0].evenement.title}}  </h2>
+     </div>
+     <div class="column">
+            <table class="table table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>nom</th>
+                        <th> prenom</th>
+                        <th> email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for e in events %}
+                    <tr>
+                        <td> <img src=" {{asset('img/profil-user/' ~ e.user.img )}} " alt="photo profil " width="40px" height="40px" > </td>
+                        <td>{{ e.user.nom}} </td>
+                        <td>{{ e.user.prenom}} </td>
+                        <td>{{ e.user.email}}</td>
+
+                    </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
+            <P>
+                <a href=" {{path('evenements_list')}} ">retour</a>
+            </P>
+        </div>
+        
+    {% else %}
+     <div class="column  ">
+         <p class="notification is-warning mt-3">
+             aucun utilisateur inscrit a cette evenement
+         </p>
+         <P>
+             <a href=" {{path('evenements_list')}} ">retour</a>
+         </P>
+
+     </div>
+
+    {% endif %}
+    
+</div>
+        
+
+{% endblock %}

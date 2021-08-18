@@ -1,4 +1,6 @@
  
+ //******************************** */ le menu burger de bulma ***********************************
+
 document.addEventListener('DOMContentLoaded', function () {
 
   // Get all "navbar-burger" elements
@@ -26,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-// le carousel   
+// ************************  le carousel (page rencontre) *******************************
 
 const swiper = new Swiper('.swiper-container', {
     // Optional parameters
@@ -50,24 +52,17 @@ const swiper = new Swiper('.swiper-container', {
     },
   });
 
-bulmaCarousel.attach('#carousel-demo', {
-    slidesToScroll: 1,
-    slidesToShow: 1, 
-});
+// *********************** Gestion de la Map ********************************************
 
-// ********************* Gestion de la Map ******************************
+var mymap = L.map('mapid').setView([ 48.56051254272461, 7.753100395202637], 13);
 
-function initMap() {
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 48.5426447, lng:7.7759673 },
-    zoom: 11,
-  }); 
- const repere={ lat: 48.5426447, lng:7.7759673 };
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoieXZlbnM2NyIsImEiOiJja3F1dmJjYW8wNW16MzFxaGZuNGMwd3JwIn0.AATQ81B4oihf9oFB6ARGWA'
+}).addTo(mymap);
 
- const marker = new google.maps.Marker({
-    position: repere,
-    map: map,
-
-  });
-
-}
+var marker = L.marker([48.56051254272461, 7.753100395202637]).addTo(mymap);

@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}contact {% endblock %}
+{% block title %}Alpha Betise contact {% endblock %}
 
 {% block javascripts %}
 
 <link rel="stylesheet" href=" {{asset('css/contact.css')}}">
-    
-{% endblock  %}
+
+{% endblock %}
 
 {% block body %}
 
@@ -14,59 +14,75 @@
 
     <img class="contact-img" src="{{asset('img/home-bg2.jpg') }}" alt="">
 
-<div class="fond-noir">
+    <div class="fond-noir">
 
-</div>
+    </div>
 
-        <div class="container has-text-centered  block-contenue">
-            <div class="column">
-              <h1 class="title is-1 mb-6 has-text-white">nous contacter</h1>
-              
-            </div>
-            <div class="columns is-8 ">
-                <div class="column is-two-thirds ">
-                    <div class="columns mb-5">
-                        <div class="column  ">
-                            <p>telephone :</p>
-                             <i class="fas fa-phone-alt"></i> 0781245190 </div>
-                        <div class="column  ">
-                            <p>Adresse:</p>
-                            <span style="color: red;"><i class="fas fa-map-marker-alt"></i></span>  Rue batimlent 67000 strasbourg </div>
-                    </div>
-                </div>
-                <div class="column is-4 has-text-left">
-                    <div class="field">
-                        <label >Name</label>
-                        <div class="control">
-                            <input class="input is-medium" type="text">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label>Email</label>
-                        <div class="control">
-                            <input class="input is-medium" type="text">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <label >Message</label>
-                        <div class="control">
-                            <textarea class="textarea is-medium"></textarea>
-                        </div>
-                    </div>
-                    <div class="control">
-                        <button type="submit" class="button is-link is-fullwidth has-text-weight-medium is-medium">envoyer</button>
-                    </div>
-                </div>
-                
-            </div>
-<div class="column">
-                    <div class="social-media mb-5">
-                        <a href="" target="_blank" class="button is-link is-outlined "><i class="fab fa-facebook-f"></i></a>
-                        <a href="" target="_blank" class="button is-danger is-outlined "><i  class="fab fa-instagram"></i></i></a>
-                        <a href="" target="_blank" class="button is-link is-outlined "><i class="fab fa-twitter"></i></i></a>
-                    </div>
-                </div>
+    <div class="container has-text-centered  block-contenue">
+        <div class="column">
+            <h1 class="title is-1 mb-6 titre-co">nous contacter</h1>
 
         </div>
+        <div class="columns">
+            {% for message in app.flashes('success') %}
+            <div class="column  notification is-primary is-light">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="columns is-8 ">
+            <div class="column is-two-thirds ">
+                <div class="columns mb-5">
+                    <div class="column  ">
+                        <p>telephone :</p>
+                        <i class="fas fa-phone-alt"></i> 0781245190
+                    </div>
+                    <div class="column  ">
+                        <p>Adresse:</p>
+                        <span style="color: red;"><i class="fas fa-map-marker-alt"></i></span> 12 Rue de l'Extenwoerth,
+                        67100 Strasbourg
+                    </div>
+                </div>
+            </div>
+            <div class="column is-4 has-text-left">
+                {{ form_start(contact) }}
+                <div class="columns">
+                    <div class="field column is-half">
+                        <label>Nom</label>
+                        <div class="control ">
+                            {{form_widget(contact.nom,{'attr':{'class':'input' , }}) }}
+                        </div>
+                    </div>
+                    <div class="field column is-half">
+                        <label>Prenom</label>
+                        <div class="control">
+                            {{form_widget(contact.prenom,{'attr':{'class':'input' , }}) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Email</label>
+                    <div class="control">
+                        {{form_widget(contact.email,{'attr':{'class':'input' , }}) }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Message</label>
+                    <div class="control">
+                        {{form_widget(contact.message,{'attr':{'class':'textarea' , }}) }}
+                    </div>
+                </div>
+                <div class="control">
+                    <button type="submit"
+                        class="button is-link  is-fullwidth has-text-weight-medium is-medium">envoyer</button>
+                </div>
+
+                <div> {{ form_errors(contact) }}</div>
+                {{ form_end(contact) }}
+
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
