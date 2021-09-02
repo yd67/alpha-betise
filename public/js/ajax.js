@@ -9,7 +9,6 @@ linkFilter.forEach( element => {
     element.addEventListener("click",function(e){
        e.preventDefault();
         let url = this.href;
-        // console.log(url);
        fetch( url,{
         headers: {
             "X-Requested-with": "XMLHttpRequest"
@@ -22,7 +21,6 @@ linkFilter.forEach( element => {
     ).then(data => {
         let contenue = document.querySelector('#contenueFiltre');
         contenue.innerHTML = data.content ; 
-        console.log(data.content);
     }).catch( e => alert(e));
    
     });
