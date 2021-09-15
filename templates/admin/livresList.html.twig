@@ -1,0 +1,50 @@
+{% extends "admin/baseAdmin.html.twig" %}
+
+{% block  body %}
+    
+<h3 class="title has-text-centered">liste des ouvrages </h3>
+{% for message in app.flashes('success') %}
+<div class="notification is-primary">
+    {{ message }}
+</div>
+{% endfor %}
+<div class="columns">
+    <div class="column ">
+        <table class="table text-center is-fullwidth ">
+           <thead>
+            <tr>
+                <th></th>
+                <th>images</th>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Code EAN / ISBN</th>
+                <th>gestion</th>
+    
+            </tr>
+        </thead> 
+        <tbody>
+            {% for l in livres %} 
+            
+            <tr>
+                <td></td>
+                <td> <img src=" {{asset('img/livres/' ~ l.img )}} " alt="photo profil de l'utilisateur" width="60px" height="60px" > </td>
+                <td> {{l.titre}} </td>
+                <td> {{l.auteur}} </td>
+                <td> {{l.code}} </td>
+                <td>
+                    <a href=" {{path('modifier_livres', {'id':l.id })}} ">modifier</a>
+                </td>
+                <td><a href="">supprimer</a></td>
+        
+              </tr> 
+            {% endfor %}
+        </tbody>       
+        </table>
+    </div>
+
+</div>
+<div class="columns mb-6 is-centered is-4 is-mobile">
+    {{ knp_pagination_render(livres, '@KnpPaginator/Pagination/bulma_pagination.html.twig') }}
+  </div>
+
+{% endblock  %}

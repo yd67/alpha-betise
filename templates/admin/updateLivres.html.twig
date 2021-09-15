@@ -1,0 +1,60 @@
+{% extends "admin/baseAdmin.html.twig" %}
+
+
+{% block body %}
+        <div>
+            {{ form_start(livresForm, {attr: {'novalidate': 'novalidate'}}) }}
+
+            <div class="file">
+                {{form_row(livresForm.img,{attr:{'class':'file'}})}}
+            </div>
+
+            <div class="columns">
+                    <div class="column is-half">
+                        {{form_row(livresForm.titre,{attr:{'class':'input'}})}}
+                    </div>
+                    <div class="column is-half">
+                        {{form_row(livresForm.auteur,{attr:{'class':'input'}})}}
+                    </div>
+            </div>
+
+            <div class="columns">
+                    <div class="column is-half">
+                        {{form_row(livresForm.editeur,{attr:{'class':'input'}})}}
+                    </div>
+                    <div class="column is-half">
+                        {{form_row(livresForm.code,{attr:{'class':'input'}})}}
+                    </div>
+            </div>
+
+            <div class="columns">
+                <div class="column is-one-third">
+                    {{form_row(livresForm.prix,{attr:{'class':'input'}})}}
+                </div>
+                <div class="column is-one-third">
+                    {{form_row(livresForm.category,{attr:{'class':'input'}})}}
+                </div>
+                <div class="column is-one-third">
+                    {{form_row(livresForm.stock,{attr:{'class':'input'}})}}
+                </div>  
+            </div>
+            
+            <div class="columns">
+                <div class="column is-half">
+                    {{form_row(livresForm.resume,{attr:{'class':'textarea'}})}}
+                </div>
+                <div class="column is-half">
+                    {{form_row(livresForm.avis_libraire,{attr:{'class':'textarea'}})}}
+                </div>
+            </div>
+           
+
+            <div class="column has-text-centered">
+                <button type="submit" class="button is-info is-outlined">Modifier</button>
+            </div>
+
+            {{ form_end(livresForm) }}
+        </div>
+
+        
+{% endblock %}

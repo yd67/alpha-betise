@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use App\Repository\LivresRepository;
 use App\Repository\VisiteRepository;
 use App\Repository\CategoryRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,12 +21,18 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function index(UserRepository $UserRepository,VisiteRepository $visiteRepo ,LivresRepository $livresRepository ,CategoryRepository $categoryRepository): Response
+    public function index(Request $request,PaginatorInterface $paginator,UserRepository $UserRepository,VisiteRepository $visiteRepo ,LivresRepository $livresRepository ,CategoryRepository $categoryRepository): Response
     {
 
-        $users = $UserRepository->findNewUser();
+        $donnees = $UserRepository->findNewUser();
         $category =$categoryRepository->findAll();
         $livres = $livresRepository->findAll();
+
+        $users = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        4 /*limit per page*/
+        );
         
         $visite = $visiteRepo->findAll();
 
@@ -48,8 +55,26 @@ class AdminController extends AbstractController
         ]);
     }
 
+     /**
+     * @Route("/admin/livres", name="livres_list")
+     */
+    public function livresList(Request $request,PaginatorInterface $paginator,LivresRepository $livresRepository)
+    {
+        $donnees= $livresRepository->findAll();
+
+        $livres = $paginator->paginate(
+            $donnees, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        5 /*limit per page*/
+        );
+
+        return$this->render('admin/livresList.html.twig',[
+            'livres' => $livres,
+        ]);
+    }
+
     /**
-     * @Route("/admin/ajout/livres", name="ajout_livres")
+     * @Route("/admin/livres/ajouter", name="ajout_livres")
      */
     public function ajouterLivres(Request $request)
     {
@@ -76,6 +101,46 @@ class AdminController extends AbstractController
         return $this->render('admin/ajoutLivres.html.twig', [
             'ajoutForm' => $form->createView(),
         ]);
+    }
+    /**
+     * @Route("/admin/livres/modifier-{id}", name="modifier_livres")
+     */
+    public function modifierLivres($id,Request $request,LivresRepository $livresRepository)
+    {
+        $livres = $livresRepository->find($id);
+         //recuperer l'ancien image
+         $oldNomImg = $livres->getImg();
+         $oldCheminImg = $this->getParameter('dossier_photos_livres').'/'. $oldNomImg;
+
+         $form = $this->createForm(LivresType::class, $livres);
+         $form->handleRequest($request);
+         if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->get('img')->getData() !== null){ 
+                        if (file_exists($oldCheminImg)) {
+                            unlink($oldCheminImg); 
+                        } 
+                        $infoImg = $form['img']->getData();
+                        $extensionImg = $infoImg->guessExtension();
+                        $nomImg = time() . '.' . $extensionImg;
+                        $infoImg->move($this->getParameter('dossier_photos_livres'), $nomImg);
+                        $livres->setImg($nomImg);    
+                }else{
+                    $livres->setImg($oldNomImg);
+                }
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($livres);
+                $manager->flush();
+                $this->addFlash(
+                    'success',
+                    'Les informations ont bien été modifié'
+                );
+                return $this->redirectToRoute('livres_list');
+            }
+
+        return $this->render('admin/updateLivres.html.twig', [
+            'livresForm' => $form->createView()
+        ]);
+
     }
 
     /**

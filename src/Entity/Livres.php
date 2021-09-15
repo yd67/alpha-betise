@@ -102,7 +102,7 @@ class Livres
         return $this->img;
     }
 
-    public function setImg(string $img): self
+    public function setImg(?string $img): self
     {
         $this->img = $img;
 

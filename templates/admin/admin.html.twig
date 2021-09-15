@@ -18,6 +18,18 @@
 {% endfor %}
 
     <div class="container">
+        <section class="hero is-info welcome is-small">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Bonjour, {{app.user.nom}} {{app.user.prenom}}.
+                    </h1>
+                    <h2 class="subtitle">
+                        Bienvenue sur la page admin ! 
+                    </h2>
+                </div>
+            </div>
+        </section>
         <div class="column">
             <h3 class="title has-text-centered ">les visiteurs du site  </h3>
             <table class="table">
@@ -67,8 +79,12 @@
         </tbody>       
         </table>
     </div>
-   
 </div>
+<div class="columns mb-6 is-centered is-4 is-mobile">
+    {{ knp_pagination_render(users, '@KnpPaginator/Pagination/bulma_pagination.html.twig') }}
+  </div>
+
+
  <h3 class="title has-text-centered">Gestion des categories </h3>
  
         <div class="collum is-4">

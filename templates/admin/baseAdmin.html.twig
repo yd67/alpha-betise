@@ -99,6 +99,7 @@
                     <li>
                         <a>gestion articles</a>
                         <ul>
+                            <li><a href=" {{path('livres_list')}} ">les livres</a></li>
                             <li><a href="{{path('ajout_livres')}}">ajouter un Livres</a> </li>
                             <li><a href="{{path('ajout_category')}}"> ajouter une categorie</a></li>
                         </ul>
@@ -123,18 +124,7 @@
         </div>
 
         <div class="column is-9">
-            <section class="hero is-info welcome is-small">
-                <div class="hero-body">
-                    <div class="container">
-                        <h1 class="title">
-                            Bonjour, {{app.user.nom}} {{app.user.prenom}}.
-                        </h1>
-                        <h2 class="subtitle">
-                            Bienvenue sur la page admin ! 
-                        </h2>
-                    </div>
-                </div>
-            </section>
+            
              {% block body %}
         
              {% endblock %}

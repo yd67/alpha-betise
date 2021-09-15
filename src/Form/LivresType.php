@@ -22,8 +22,10 @@ class LivresType extends AbstractType
     {
         $builder
             ->add('img',FileType::class,[ 
-                'required' => true,
-                'label'=> 'photo du livre'
+                'data_class' => null  ,
+                'required' => false,
+                'label'=> 'photo du livre',
+                
             ])
             ->add('titre',TextType::class,[
 
